@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+</head>
+<body>
+<h1><%= title %></h1>
+
+<p>Welcome to <%= title %></p>
+</body>
+
+<script>
+  $(function(){
+    $.ajax({
+      url: '/event/getEvent',
+      type: 'GET',
+      success: function (result) {
+        if(result.result.isEvent==1){
+          alert(result.result.imageUrl);
+          alert(result.result.date);
+          var popUrl = "/web/popup";
+          var popOption = "width=422, height=600, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+          window.open(popUrl,"",popOption);
+        }
+      }
+    });
+  })
+</script>
+</html>

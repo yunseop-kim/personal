@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <h1><%= title %></h1>
+
+    <table width="400" class="table">
+      <tr>
+        <th>번호</th>
+        <th>ID</th>
+        <th>이름</th>
+        <th>제품명</th>
+        <th>등록일</th>
+        <th>별점</th>
+        <th>조회수</th>
+        <th>좋아요</th>
+        <th>찜</th>
+        <th>댓글수</th>
+        <th>신고</th>
+      </tr>
+      <tr>
+        <td><%= data.reviewNum %></td>
+        <td><a href="/admin/memberRead/<%= data.memberId %>"><%= data.memberId %></a></td>
+        <td><%= data.memberName %></td>
+        <td><%= data.productName %></td>
+        <td><%= data.reviewRegdate %></td>
+        <td><%= data.reviewStar %></td>
+        <td><%= data.reviewHit %></td>
+        <td><%= data.likeFlagCnt %></td>
+        <td><%= data.zzimCnt %></td>
+        <td><%= data.reviewReplyCnt %></td>
+        <td><%= data.reportFlagCnt %></td>
+      </tr>
+      <tr>
+        <th>구입출처</th>
+        <th>가격</th>
+        <th>노하우</th>
+        <th>장점</th>
+        <th>단점</th>
+        <th>추천하고픈분</th>
+        <th colspan="5">삭제여부</th>
+      </tr>
+      <tr>
+        <td><%= data.reviewWhere %></td>
+        <td><%= data.reviewPrice %></td>
+        <td><%= data.reviewKnowhow %></td>
+        <td><%= data.reviewGood %></td>
+        <td><%= data.reviewBad %></td>
+        <td><%= data.reviewRecommandPeople %></td>
+        <td><%= data.reviewIsDeleted %></td>
+      </tr>
+      <tr>
+        <th colspan="100%">
+          <%= data.reviewContent %>
+        </th>
+      </tr>
+      <tr>
+        <th colspan="100%">
+          사진&nbsp;&nbsp;&nbsp;&nbsp;
+          <img src="<%= data.reviewPicture1 %>" height="100px" width="100px"/>
+          <img src="<%= data.reviewPicture2 %>" height="100px" width="100px"/>
+          <img src="<%= data.reviewPicture3 %>" height="100px" width="100px"/>
+          <img src="<%= data.reviewPicture4 %>" height="100px" width="100px"/>
+          <img src="<%= data.reviewPicture5 %>" height="100px" width="100px"/>
+        </th>
+      </tr>
+      <tr>
+        <th>댓글</th>
+        <th> 글쓴이</th>
+        <th colspan="7  "> 내용</th>
+        <th> 날짜</th>
+        <th>댓글 삭제</th>
+      </tr>
+      <% for(var i = 0; i < data.comment.length, item = data.comment[i]; i++){ %>
+      <tr>
+        <td><%= i + 1 %></td>
+        <td><%= item.memberId %> </td>
+        <td colspan="7"><%= item.reviewReplyContent %></td>
+        <td><%= item.reviewReplyRegdate %></td>
+        <td>
+          <form method="post" class="form-inline">
+            <%if(item.reviewReplyIsDeleted == 0){%>
+            <input type="hidden" name="reviewReplyNum" value="<%=item.reviewReplyNum%>"/>
+            <input type="submit" formaction="/admin/reviewReplyDelete" value="삭제" class="btn btn-warning"/>
+            <%}else{%>
+            <input type="hidden" name="reviewReplyNum" value="<%=item.reviewReplyNum%>"/>
+            <input type="submit" formaction="/admin/reviewReplyDelete" value="삭제취소" class="btn btn-warning"/>
+            <%}%>
+          </form>
+        </td>
+      </tr>
+      <% } %>
+      <tr>
+        <td colspan="9">
+            <span id="span1">
+                <form action="/admin/reviewDelete" method="post" name="frm1" id="frm1"
+                      class="form-inline">
+                  <input type="button" value="제품 바로가기" id="product" class="btn btn-default"/>
+                  <button type="button" class="btn btn-primary" data-toggle="modal"
+                          data-target="#myModal">
+                    제품 수정
+                  </button>
+                  <% if(data.reviewIsDeleted == '-'){ %>
+                  <input type="hidden" name="reviewNum" value="<%= data.reviewNum %>"/>
+                  <input type="button" value="삭제" id="delete" class="btn btn-warning"/>
+                  <% }else{ %>
+                  <input type="hidden" name="reviewNum" value="<%= data.reviewNum %>"/>
+                  <input type="button" value="삭제취소" id="delete" class="btn btn-warning"/>
+                  <%}%>
+                  <input type="button" onclick="location.href='/admin/review/1'" value='목록' class="btn btn-default"><br>
+                </form>
+            </span>
+        </td>
+      </tr>
+    </table>
+
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                  aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">제품 번호 수정</h4>
+          </div>
+          <form action="/admin/reviewModifyProduct" method="post" name="frm2" id="frm2"
+                class="form-inline">
+            <div class="modal-body">
+              제품 번호 입력 : <input type="text" name='productNum'>
+              <input type="hidden" name="reviewNum" value="<%= data.reviewNum %>"/>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="modifyProductNum" class="btn btn-primary">수정</button>
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+
+<script src="/javascripts/jquery-1.11.2.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+<script>
+
+  $(function () {
+    <%if(!memberId && memberId!='admin'){%>
+    alert('로그인을 안하거나 관리자가 아니네요');
+    history.back();
+    <%} %>
+  })
+
+  $(function () {
+    $("#delete").click(function () {
+      if (confirm("정말 삭제하시겠습니까??") == true) {
+        document.frm1.submit();
+      } else {
+        return;
+      }
+    });
+  });
+
+  $(function () {
+    $("#product").click(function () {
+      location.href = "/admin/productSearch/1/3/<%=data.productName%>"
+    });
+  });
+
+  $(function () {
+    $('#modifyProductNum').click(function () {
+      if (confirm("정말 수정하시겠습니까??") == true) {
+        document.frm2.submit();
+      } else {
+        return;
+      }
+    })
+  })
+</script>
+
+</html>

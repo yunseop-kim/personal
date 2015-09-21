@@ -1,0 +1,144 @@
+<% layout('layout') -%>
+<div class="container-fluid noPadding" style="background-color:#e8e8e8">
+  <div class="container textstyle">
+    <div class="row text-center latestProjects" id="infinite">
+
+      <!--데이터뿌려주는 부분-->
+
+      <%for(var i= 0, len = list.data.length ; item=list.data[i],  i<len; i++){ %>
+      <div class="col-md-4 col-sm-6">
+        <p><a href="/web/view/<%=item.reviewNum%>">
+            <img class="imgsize" src="<%=item.reviewPicture%>" height="217px"
+                 width="260px" alt="썸네일">
+          </a></p>
+        <div id="star">
+          <ul id="star0" class="star" title="Rate This!">
+            <li id="starCur0" class="curr" title="98"
+                style="width: <%
+                switch(item.reviewStar) {
+                case 0.5 : %> 8.5<% break;
+                case 1.0 : %> 17<% break;
+                case 1.5 : %> 25.5<% break;
+                case 2.0 : %> 34<% break;
+                case 2.5 : %> 42.5<% break;
+                case 3.0 : %> 51<% break;
+                case 3.5 : %> 59.5<% break;
+                case 4.0 : %> 68<% break;
+                case 4.5 : %> 76.5<% break;
+                case 5.0 : %> 85<% break;
+                }
+                %>px;"></li>
+          </ul>
+        </div>
+        <div>
+          <p class="p_info1" style="font-size: 13px; height: 50px;"><%=item.productBrand%></p>
+          <p class="p_info1" style="font-size: 8px; height: 80px; cursor: pointer"
+             onclick="location.href='/web/view/<%=item.reviewNum%>'"><strong><%=item.productName%></strong></p>
+        </div>
+        <p class="p_info2"><a href="/web/memberPage/<%=item.memberId%>"
+                              style="font-size: 16px"><%=item.memberName%></a></p>
+        <p class="p_info3" style="margin-bottom:40px">
+          <img src="image/ico_like.png" style="width:12px"><%=item.likeFlagCnt%>
+          <img src="image/ico_reply.png" style="width:13px"><%=item.reviewReplyCnt%>
+          <img src="image/ico_view.png" style="width:20px"><%=item.reviewHit%></p>
+
+      </div>
+      <%}%>
+      <% partial('list.ejs')%>
+      <!--데이터뿌려주는 부분-->
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+
+  <div class="container footer">
+    <div class="col-xs-12 col-md-8 noPadding">
+      <p id="footerLogoText">Soodaa © 2015 | <a href="/privacy">개인정보취급방침</a> | <a href="/ask">운영자에게
+          문의하기</a>
+      </p>
+    </div>
+    <div class="col-xs-12 col-md-4 noPadding">
+      <div class="socialButtons responsiveAlign">
+        <a href="#" class="noPadding">
+          <img src="images/web/twitter.svg" alt="image1"
+               onclick="alert('준비중입니다');">
+        </a>
+        <a href="#" class="noPadding">
+          <img src="images/web/facebook.svg" alt="image1"
+               onclick="alert('준비중입니다');">
+        </a>
+        <a href="#" class="noPadding">
+          <img src="images/web/behance.svg" alt="image1"
+               onclick="alert('준비중입니다');">
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 팝업 띄우는 화면의 자바스크립트 -->
+
+<SCRIPT language="javascript">
+  $(function(){
+    $.ajax({
+      url: '/event/getEvent',
+      type: 'GET',
+      success: function (result) {
+        if(result.result.isEvent==1){
+          function getCookie( cookieName )
+          {
+            var search = cookieName + "=";
+            var cookie = document.cookie;
+
+            // 현재 쿠키가 존재할 경우
+            if( cookie.length > 0 )
+            {
+              // 해당 쿠키명이 존재하는지 검색한 후 존재하면 위치를 리턴.
+              startIndex = cookie.indexOf( cookieName );
+
+              // 만약 존재한다면
+              if( startIndex != -1 )
+              {
+                // 값을 얻어내기 위해 시작 인덱스 조절
+                startIndex += cookieName.length;
+
+                // 값을 얻어내기 위해 종료 인덱스 추출
+                endIndex = cookie.indexOf( ";", startIndex );
+
+                // 만약 종료 인덱스를 못찾게 되면 쿠키 전체길이로 설정
+                if( endIndex == -1) endIndex = cookie.length;
+
+                // 쿠키값을 추출하여 리턴
+                return unescape( cookie.substring( startIndex + 1, endIndex ) );
+              }
+              else
+              {
+                // 쿠키 내에 해당 쿠키가 존재하지 않을 경우
+                return false;
+              }
+            }
+            else
+            {
+              // 쿠키 자체가 없을 경우
+              return false;
+            }
+          }
+
+          if( !getCookie("close20090524") ){
+            var popUrl = "/web/popup";
+            var popOption = "width=422, height=600, resizable=no, scrollbars=no, status=no;";    //팝업창 옵션(optoin)
+
+            window.open(popUrl,"",popOption);
+          }
+
+        }
+      }
+    });
+  })
+
+
+
+
+</SCRIPT>
+

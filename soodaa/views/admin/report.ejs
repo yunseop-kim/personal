@@ -1,0 +1,98 @@
+<!-- report.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <h1><%= title %></h1>
+    <table width="600" class="table">
+      <tr>
+        <th >번호</th>
+        <th >신고한 사람</th>
+        <th >신고된 사람</th>
+        <th >글 번호</th>
+        <th >신고 내용</th>
+        <th >신고일</th>
+        <th >처리 여부</th>
+      </tr>
+      <%
+      for(var i = 0, len = datas.data.length; i < len, item = datas.data[i]; i++) {
+      %>
+      <tr>
+        <td><%= datas.max-i %></td>
+        <td><%= item.memberId %> : <a href="/admin/memberRead/<%=item.memberId%>">조회</a></td>
+        <td><%= item.reported %> : <a href="/admin/memberRead/<%=item.reported%>">조회</a></td>
+        <td><%= item.reviewNum %>번 : <a href="/admin/review/read/<%=item.reviewNum%>">조회</a></td>
+        <td><%= item.reportContent %></td>
+        <td><%= item.reportDate %></td>
+        <td>
+          <form action="/admin/reportComplete" method="post">
+            <% if(item.reportFlag == 1){%>
+              <input type="hidden" name="page" value=<%=datas.page%>>
+              <input type="hidden" name="memberId" value=<%=item.memberId%>>
+              <input type="hidden" name="reviewNum" value=<%=item.reviewNum%>>
+              <input type="submit" value="완료 처리" class="btn btn-success">
+            <%}else{%>
+              완료
+            <%}%>
+          </form>
+        </td>
+      </tr>
+      <%
+      }
+      %>
+    </table>
+    <div class="form-control" style="text-align: center">
+      <% if(datas.page > datas.pageSize) { %>
+      [ <a style="text-decoration:none" href="/admin/report/1">◀◀</a> ]
+      [ <a style="text-decoration:none" href="/admin/report/<%= datas.startPage-1 %>">◀</a> ]
+      <% } else { %>
+      [<span style="color:gray">◀◀</span>]
+      [<span style="color:gray">◀</span>]
+      <% } %>
+      &nbsp;&nbsp;
+      <% for(var i = datas.startPage; i <= datas.endPage; i++) { %>
+      <% if(i == datas.page) { %>
+      [<%= i %>]
+      <% } else { %>
+      [<a style="text-decoration:none" href="<%= i %>"><%= i %></a>]
+      <% } %>
+      <% } %>
+      &nbsp;&nbsp;
+      <% if(datas.endPage < datas.totalPage) { %>
+      [ <a style="text-decoration:none" href="/admin/report/<%= datas.endPage+1 %>">▶</a> ]
+      [<a style="text-decoration:none" href="/admin/report/<%= datas.totalPage %>">▶▶</a> ]
+
+      <% } else { %>
+      [<span style="color:gray">▶</span>]
+      [<span style="color:gray">▶▶</span>]
+
+      <% } %>
+
+    </div>
+  </div>
+</div>
+
+</body>
+<script src="/javascripts/jquery-1.11.2.js"></script>
+<script>
+  $(function () {
+    <%if(!memberId && memberId!='admin'){%>
+    alert('로그인을 안하거나 관리자가 아니네요');
+    history.back();
+
+    <%}%>
+
+  })
+
+</script>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <h1><%= title %></h1>
+
+    <p>Welcome to <%= title %></p>
+<span id="login">
+  <a href="/admin/login">로그인</a>
+</span>
+<span id="logout" style="display: none;">
+  <a href="/admin/logout">로그아웃</a><br>
+  <a href="/admin/todays">오늘의 육아</a><br>
+  <a href="/admin/notice">공지사항</a><br>
+  <a href="/admin/product">제품 관리</a><br>
+  <a href="/admin/member">회원 관리</a><br>
+  <a href="/admin/review">리뷰 보기</a><br>
+  <a href="/admin/choice">초이스 보기</a><br>
+  <a href="/admin/report">신고</a><br>
+  <a href="/admin/event">이벤트</a><br>
+</span>
+  </div>
+</div>
+</body>
+<script src="/javascripts/jquery-1.11.2.js"></script>
+<script>
+  $(function () {
+    <%if(!memberId){%>
+    $("#login").show();
+    $("#logout").hide();
+    <%} else if(memberId=='admin'){%>
+    $("#login").hide();
+    $("#logout").show();
+    <%}%>
+
+  })
+
+</script>
+</html>

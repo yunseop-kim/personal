@@ -1,0 +1,94 @@
+<!-- choice.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <h1><%= title %></h1>
+    <table width="600" class="table">
+      <tr>
+        <th>번호</th>
+        <th>카테고리</th>
+        <th>제목</th>
+        <th>글쓴이</th>
+        <th>ID</th>
+        <th>작성일</th>
+        <th>마감일</th>
+        <th>댓글수</th>
+        <th>마감여부</th>
+        <th>삭제여부</th>
+      </tr>
+      <%
+      for(var i = 0, len = datas.data.length; i < len, item = datas.data[i]; i++) {
+      %>
+      <tr>
+        <td><%= item.voteNum%></td>
+        <td><%= item.voteCategory%></td>
+        <td><a href="/admin/choice/read/<%=item.voteNum%>"><%= item.voteTitle%></a></td>
+        <td><%= item.memberName%></td>
+        <td><a href="/admin/memberRead/<%=item.memberId%>"><%=item.memberId%></a></td>
+        <td><%= item.voteRegdate%></td>
+        <td><%= item.voteFinalDate%></td>
+        <td><%= item.voteReplyCnt%></td>
+        <td><%= item.finishFlag%></td>
+        <td><%= item.voteIsDeleted%></td>
+      </tr>
+      <%
+      }
+      %>
+    </table>
+    <div class="form-control" style="text-align: center">
+      <% if(datas.page > datas.pageSize) { %>
+      [ <a style="text-decoration:none" href="/admin/todays/1">◀◀</a> ]
+      [ <a style="text-decoration:none" href="/admin/todays/<%= datas.startPage-1 %>">◀</a> ]
+      <% } else { %>
+      [<span style="color:gray">◀◀</span>]
+      [<span style="color:gray">◀</span>]
+      <% } %>
+      &nbsp;&nbsp;
+      <% for(var i = datas.startPage; i <= datas.endPage; i++) { %>
+      <% if(i == datas.page) { %>
+      [<%= i %>]
+      <% } else { %>
+      [<a style="text-decoration:none" href="<%= i %>"><%= i %></a>]
+      <% } %>
+      <% } %>
+      &nbsp;&nbsp;
+      <% if(datas.endPage < datas.totalPage) { %>
+      [ <a style="text-decoration:none" href="/admin/todays/<%= datas.endPage+1 %>">▶</a> ]
+      [<a style="text-decoration:none" href="/admin/todays/<%= datas.totalPage %>">▶▶</a> ]
+
+      <% } else { %>
+      [<span style="color:gray">▶</span>]
+      [<span style="color:gray">▶▶</span>]
+
+      <% } %>
+
+    </div>
+    <input type="button" onclick="location.href='/admin/'" value='메인메뉴' class="btn btn-primary">
+  </div>
+</div>
+
+</body>
+<script src="/javascripts/jquery-1.11.2.js"></script>
+<script>
+  $(function () {
+    <%if(!memberId && memberId!='admin'){%>
+    alert('로그인을 안하거나 관리자가 아니네요');
+    history.back();
+
+    <%}%>
+
+  })
+
+</script>
+</html>

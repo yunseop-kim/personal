@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <h1><%= title %></h1>
+    <a href="/admin/todays">리스트</a><br>
+
+    <form action="/admin/todaysWrite" method="post" enctype="multipart/form-data">
+      <table width="400" class="table">
+        <tr>
+          <th>제목</th>
+          <td><input type="text" name="todaysCareTitle" size="30" maxlength="50"/></td>
+        </tr>
+        <tr>
+          <th>내용</th>
+          <td><textarea name="todaysCareContent" cols="30" rows="10"></textarea></td>
+        </tr>
+        <tr>
+          <th>카테고리</th>
+          <td><select name="todaysCareCategory" id="todaysCareCategory" class="select">
+              <option value="1">육아</option>
+              <option value="2">제품/서비스</option>
+              <option value="3">임신</option>
+            </select></td>
+        </tr>
+        <tr>
+          <th>사진</th>
+          <td>
+            <input type="file" name="todaysCarePicture1"/>
+            <input type="file" name="todaysCarePicture2"/>
+            <input type="file" name="todaysCarePicture3"/>
+            <input type="file" name="todaysCarePicture4"/>
+            <input type="file" name="todaysCarePicture5"/>
+            <input type="file" name="todaysCarePicture6"/>
+            <input type="file" name="todaysCarePicture7"/>
+            <input type="file" name="todaysCarePicture8"/>
+            <input type="file" name="todaysCarePicture9"/>
+            <input type="file" name="todaysCarePicture10"/>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <input type="submit" value="쓰기" class="btn btn-primary"/>
+            <input type="reset" value="취소" class="btn btn-warning"/>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>
+</body>
+<script src="/javascripts/jquery-1.11.2.js"></script>
+<script>
+  $(function () {
+    <%if(!memberId && memberId!='admin'){%>
+    alert('로그인을 안하거나 관리자가 아니네요');
+    history.back();
+
+    <%}%>
+
+  })
+
+</script>
+</html>

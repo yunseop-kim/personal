@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <h1><%= title %></h1>
+    <table width="600" class="table">
+      <tr>
+        <th>글번호</th>
+        <th>글쓴이 ID</th>
+        <th>글쓴이</th>
+        <th>제품명</th>
+        <th>등록일</th>
+        <th>별점</th>
+        <th>좋아요</th>
+        <th>찜</th>
+        <th>댓글</th>
+        <th>신고</th>
+      </tr>
+      <%
+      for(var i = 0, len = datas.data.length; i < len, item = datas.data[i]; i++) {
+      %>
+      <tr>
+        <td><%= item.reviewNum %></td>
+        <td><a href="/admin/memberRead/<%=item.memberId%>"><%= item.memberId %></a></td>
+        <td><%= item.memberName %></td>
+        <td><a href="/admin/review/1/<%=item.reviewNum%>"><%= item.productName %></a></td>
+        <td><%= item.reviewRegdate %></td>
+        <td><%= item.reviewStar %></td>
+        <td><%= item.likeFlagCnt %></td>
+        <td><%= item.zzimCnt %></td>
+        <td><%= item.reviewReplyCnt %></td>
+        <td><%= item.reportFlagCnt %></td>
+      </tr>
+      <%
+      }
+      %>
+    </table>
+    <div class="form-control" style="text-align: center">
+      <% if(datas.page > datas.pageSize) { %>
+      [ <a style="text-decoration:none" href="/admin/review/1">◀◀</a> ]
+      [ <a style="text-decoration:none" href="/admin/review/<%= datas.startPage-1 %>">◀</a> ]
+      <% } else { %>
+      [<span style="color:gray">◀◀</span>]
+      [<span style="color:gray">◀</span>]
+      <% } %>
+      &nbsp;&nbsp;
+      <% for(var i = datas.startPage; i <= datas.endPage; i++) { %>
+      <% if(i == datas.page) { %>
+      [<%= i %>]
+      <% } else { %>
+      [<a style="text-decoration:none" href="<%= i %>"><%= i %></a>]
+      <% } %>
+      <% } %>
+      &nbsp;&nbsp;
+      <% if(datas.endPage < datas.totalPage) { %>
+      [ <a style="text-decoration:none" href="/admin/review/<%= datas.endPage+1 %>">▶</a> ]
+      [<a style="text-decoration:none" href="/admin/review/<%= datas.totalPage %>">▶▶</a> ]
+
+      <% } else { %>
+      [<span style="color:gray">▶</span>]
+      [<span style="color:gray">▶▶</span>]
+
+      <% } %>
+
+    </div>
+    <input type="button" onclick="location.href='/admin/'" value='메인메뉴' class="btn btn-primary">
+  </div>
+</div>
+
+</body>
+<script src="/javascripts/jquery-1.11.2.js"></script>
+<script>
+  $(function () {
+    <%if(!memberId && memberId!='admin'){%>
+    alert('로그인을 안하거나 관리자가 아니네요');
+    history.back();
+
+    <%}%>
+
+  })
+
+</script>
+</html>

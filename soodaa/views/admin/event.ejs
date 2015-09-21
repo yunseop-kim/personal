@@ -1,0 +1,110 @@
+<!-- event.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <h1><%= title %></h1>
+    <table width="600" class="table">
+      <tr>
+        <th>번호</th>
+        <th>제목</th>
+        <th>사진</th>
+        <th>작성일</th>
+        <th>삭제여부</th>
+        <th>삭제</th>
+      </tr>
+      <%
+      for(var i = 0, len = datas.data.length; i < len, item = datas.data[i]; i++) {
+      %>
+      <tr>
+        <td><%= item.eventNum %></td>
+        <td><%= item.eventTitle %></td>
+        <td><img src="http://52.68.92.194/images/uploads/event/<%= item.eventPicture %>" width="50"
+                 heigth=100 alt=""/></td>
+        <td><%= item.eventRegdate %></td>
+        <td>
+          <% if(item.eventIsDeleted == 1){ %>
+          삭제됨
+          <% }else{ %>
+          등록됨
+          <% } %>
+        </td>
+        <td>
+          <% if(item.eventIsDeleted == 1){ %>
+          <form action="/admin/eventDel" method="post">
+            <input type="hidden" name="eventNum" value=<%= item.eventNum %>>
+            <input type="hidden" name="eventDel" value=<%= item.eventIsDeleted %>>
+            <input type="submit" value="등록" class="btn btn-primary">
+          </form>
+          <% }else{ %>
+          <form action="/admin/eventDel" method="post">
+            <input type="hidden" name="eventNum" value=<%= item.eventNum %>>
+            <input type="hidden" name="eventDel" value=<%= item.eventIsDeleted %>>
+            <input type="submit" value="삭제" class="btn btn-warning">
+          </form>
+          <% } %>
+        </td>
+      </tr>
+      <%
+      }
+      %>
+    </table>
+    <div class="form-control" style="text-align: center">
+      <% if(datas.page > datas.pageSize) { %>
+      [ <a style="text-decoration:none" href="/admin/todays/1">◀◀</a> ]
+      [ <a style="text-decoration:none" href="/admin/todays/<%= datas.startPage - 1 %>">◀</a> ]
+      <% } else { %>
+      [<span style="color:gray">◀◀</span>]
+      [<span style="color:gray">◀</span>]
+      <% } %>
+      &nbsp;&nbsp;
+      <% for(var i = datas.startPage; i <= datas.endPage; i++) { %>
+      <% if(i == datas.page) { %>
+      [<%= i %>]
+      <% } else { %>
+      [<a style="text-decoration:none" href="<%= i %>"><%= i %></a>]
+      <% } %>
+      <% } %>
+      &nbsp;&nbsp;
+      <% if(datas.endPage < datas.totalPage) { %>
+      [ <a style="text-decoration:none" href="/admin/todays/<%= datas.endPage + 1 %>">▶</a> ]
+      [<a style="text-decoration:none" href="/admin/todays/<%= datas.totalPage %>">▶▶</a> ]
+
+      <% } else { %>
+      [<span style="color:gray">▶</span>]
+      [<span style="color:gray">▶▶</span>]
+
+      <% } %>
+
+    </div>
+    <input type="button" onclick="location.href='/admin/'" value='메인메뉴' class="btn btn-primary">
+    <input type="button" onclick="location.href='/admin/eventWrite'" value='쓰기'
+           class="btn btn-success">
+
+  </div>
+</div>
+
+</body>
+<script src="/javascripts/jquery-1.11.2.js"></script>
+<script>
+  $(function () {
+    <%if(!memberId && memberId!='admin'){%>
+    alert('로그인을 안하거나 관리자가 아니네요');
+    history.back();
+
+    <%}%>
+
+  })
+
+</script>
+</html>

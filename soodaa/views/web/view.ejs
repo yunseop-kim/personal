@@ -1,0 +1,239 @@
+<% layout('layout') -%>
+<div class="container-fluid noPadding" style="background-color:#e8e8e8">
+            <div class="container textstyle">
+                <div class="row text-center ViewProjects">
+                    <div class="col-md-2 col-sm-6"></div>
+                    <div class="col-md-8 col-sm-6" style="background-color:#fff; margin:40px auto; padding-top:15px;">
+                        <a href="#"><img class="imgsize" src="<%=data.reviewPicture1%>" width="100%"
+                           ></a>
+
+                           <div id="star_w">
+                            <ul id="star0" class="star" title="Rate This!">
+                                <li id="starCur0" class="curr" title="98" style="width: <%
+                                    switch(data.reviewStar) {
+                                        case 0.5 : %> 8.5<% break;
+                                        case 1.0 : %> 17<% break;
+                                        case 1.5 : %> 25.5<% break;
+                                        case 2.0 : %> 34<% break;
+                                        case 2.5 : %> 42.5<% break;
+                                        case 3.0 : %> 51<% break;
+                                        case 3.5 : %> 59.5<% break;
+                                        case 4.0 : %> 68<% break;
+                                        case 4.5 : %> 76.5<% break;
+                                        case 5.0 : %> 85<% break;
+                                    }
+                                %>px;"></li>
+                            </ul>
+                        </div>
+                        <p class="p_info1 text-left">
+                            <%=data.productBrand%><br>
+                            <strong><%=data.productName%></strong>
+                        </p>
+
+                        <p class="p_info1 text-left">
+                            <span style="margin-right:3em; display:inline-block;">가격
+                                <b style="margin-left:1em; font-size:1.4em; color:#f7923f"><%=data.reviewPrice%>원</b></span>
+                            <span style="margin-right:3em;  display:inline-block;">구입장소
+                                <b style="margin-left:1em; font-size:1.4em; color:#f7923f"><%=data.reviewWhere%></b></span>
+                        </p>
+
+                            <div class="p_info2 text-left">
+                                <table width="100%" height="200px">
+                                    <tr>
+                                        <td width="50%" valign="top" style="text-align:center; border-right:1px solid #f7923f">
+                                            장점
+                                        </td>
+                                        <td width="50%" valign="top" style="text-align:center;">
+                                            단점
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%" valign="top" style="text-align:center; border-right:1px solid #f7923f">
+                                            <%=data.reviewGood%>
+                                        </td>
+                                        <td width="50%" valign="top" style="text-align:center;">
+                                            <%=data.reviewBad%>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div class="p_info2 text-left">
+                                <table width="100%" height="200px">
+                                    <tr>
+                                        <td width="50%" valign="top" style="text-align:center; border-right:1px solid #f7923f">추천해주고 싶은 사람</td>
+                                        <td width="50%" valign="top" style="text-align:center;">할인노하우</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="50%" valign="top" style="text-align:center; border-right:1px solid #f7923f">
+                                            <%=data.reviewRecommandPeople%>
+                                        </td>
+                                        <td width="50%" valign="top" style="text-align:center;">
+                                            <%=data.reviewKnowhow%>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+
+                            <p class="p_info1 text-left" style="text-align:left;">
+                               <%-data.reviewContent%>
+                           </p>
+                            <%if(data.reviewPicture2!=null){%>
+                                <img class="imgsize" src="<%=data.reviewPicture2%>" width="50%">
+                            <%}%>
+                            <%if(data.reviewPicture3!=null){%>
+                                <img class="imgsize" src="<%=data.reviewPicture3%>" width="50%">
+                            <%}%>
+                            <%if(data.reviewPicture4!=null){%>
+                                <img class="imgsize" src="<%=data.reviewPicture4%>" width="50%">
+                            <%}%>
+                            <%if(data.reviewPicture5!=null){%>
+                                <img class="imgsize" src="<%=data.reviewPicture5%>" width="50%">
+                            <%}%>
+                           <br><br>
+                           <% if ( memberId ){%>
+                            <form id="my_form" method="post" action="/web/like">
+                                <input type="hidden" name="isReaderLike" value="<%=(1-data.isReaderLike)%>">
+                                <input type="hidden" name="reviewNum" value="<%=data.reviewNum%>">
+                                <a href="javascript:{}" onclick="document.getElementById('my_form').submit();">
+                                    <p class="p_info1 " style="text-align:center;">
+                                        <img src="/image/ico_like.png" style="width:36px">
+                                        <% if(1-data.isReaderLike) {%>
+                                        리뷰가 도움이 되었어요!
+                                        <% }else{%>
+                                        좋아요를 취소합니다!
+                                        <%}%>
+                                    </p>
+                                </a>
+                            </form>
+                            <%}%>
+
+
+                        <p class="p_info3 text-left" style="margin-bottom:1px">
+                            <img src="/image/ico_like.png"
+                            style="width:12px"><%=data.likeFlagCnt%>
+                            <img src="/image/ico_reply.png"
+                            style="width:13px"><%=data.reviewReplyCnt%>
+                            <img src="/image/ico_view.png"
+                            style="width:20px"><%=data.reviewHit%>
+                        </p>
+                        <% if(data.memberId == memberId){%>
+                        <p class="p_info3 text-right" style="font-size:10px; margin-bottom:40px">
+                            <form id="modifydelete" method="post">
+                                <input type="hidden" name="reviewNum" value="<%=data.reviewNum%>">
+                                <div class="btn-group btn-group-xs" role="group" style="float:right">
+                                  <input type="button" class="btn btn-default" onclick="location.href='/web/modify/<%=data.reviewNum%>'" value="수정">
+                                  <input type="submit" class="btn btn-default" formaction="/web/delReview" value="삭제">
+                                </div>
+                            </form>
+                        </p>
+                        <% } %>
+                    </div>
+                </div>
+
+                <!-- Comment!!!-->
+                <div class="row text-center ViewProjects">
+                    <div class="col-md-2 col-sm-6"></div>
+                    <div class="col-md-8 col-sm-6 text-left" style="margin:20px auto; font-size:11px; color:#9d9b9b">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%"
+                        style="table-layout:fixed; word-break:break-all;">
+
+                            <%
+                            for(var i = 0, len = data.comment.length; i < len, item = data.comment[i]; i++) {
+                                %>
+                                <tr>
+                                    <td valign="top" width="40"><a href="/web/memberPage/<%=item.memberId%>"><img src="/images/uploads/member/<%=item.memberPicture%>"></a></td>
+                                        <td style="padding-left:1em">
+                                            <a href="/web/memberPage/<%=item.memberId%>"><p><strong><%=item.memberName%></strong></p></a>
+                                            <%=item.reviewReplyContent%><br><br>
+                                            <td width="5">&nbsp;</td>
+                                            <td width="60"><%=item.reviewReplyRegdate%></td>
+                                            <td width="10">
+                                                <% if ( item.memberId == memberId ){ %>
+                                                <form id="delReplyform" method="post" action="/web/delReply">
+                                                    <input type="hidden" name="reviewReplyNum" value="<%=item.reviewReplyNum%>">
+                                                    <a href="javascript:{}" onclick="document.getElementById('delReplyform').submit();">
+                                                        X
+                                                    </a>
+                                                </form>
+                                                <% } %>
+                                            </td>
+                                        </td>
+                                    </tr>
+                                <%
+                                }
+                                %>
+
+
+                        </table>
+                        <form action="/web/reply" method="post">
+                            <input type="hidden" name="reviewNum" value="<%=data.reviewNum%>">
+                            <ul>
+                                <li style="width:100%; margin:1em auto; list-style:none;">
+                                    <textarea cols="40" rows="10" name="reviewReplyContent"
+                                    style="width:100%; min-width:300px; height:6em; padding:0.5em; vertical-align:top;"
+                                    placeholder="댓글을 작성해주세요"></textarea>
+                                </li>
+                                <li style="width:100%; margin:1em auto; list-style:none;">
+                                    <button type="submit" class="c_btn" style="border:0; width:5em; float:right;">등록
+                                    </button>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="container footer">
+                <div class="col-xs-12 col-md-8 noPadding">
+                    <p id="footerLogoText">Soodaa © 2015 | <a href="/privacy">개인정보취급방침</a> | <a href="/ask">운영자에게 문의하기</a></p>
+                </div>
+                <div class="col-xs-12 col-md-4 noPadding">
+                    <div class="socialButtons responsiveAlign">
+                        <a href="#" class="noPadding">
+                            <img src="/image/twitter.svg" alt="image1"
+                            onclick="alert('준비중입니다');">
+                        </a>
+                        <a href="#" class="noPadding">
+                            <img src="/image/facebook.svg" alt="image1"
+                            onclick="alert('준비중입니다');">
+                        </a>
+                        <a href="#" class="noPadding">
+                            <img src="/image/behance.svg" alt="image1"
+                            onclick="alert('준비중입니다');">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="/javascripts/bootstrap.min.js"></script>
+        <script src="/javascripts/myscript.js"></script>
+        <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    // 로그인 했으면
+
+    ga('create', 'UA-61477451-1', { 'userId': '45' });
+
+
+
+    // 기본 설정
+    ga('send', 'pageview');
+    // 로그인한 User-ID를 사용하여 User-ID를 설정합니다.
+
+    </script>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>Soodaa::수다</title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <script src="/javascripts/jquery-1.11.2.js"></script>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+</head>
+<nav class="navbar navbar-default navbar-fixed-top noBorder" role="navigation">
+  <div class="container">
+    <div class="row">
+      <!-- 모바일 탑메뉴 시작 여기서부터 반영해야됨! 11:47-->
+      <div class="navbar-header">
+
+        <button type="button" class="navbar-toggle" style="padding:0; border:0;"
+                data-toggle="collapse"
+                data-target="#myNavbar">
+          <img src="/images/web/btn_menu.png" width="40">
+        </button>
+
+        <button type="button" class="navbar-toggle" style="float:right; margin-left:1em; padding:0"
+                data-toggle="collapse" data-target="#myNavbar_2"><img
+              src="/images/web/ico_pro.png" width="40"></button>
+
+        <a href="/write_first">
+          <button type="button" class="navbar-toggle" style="float:left; padding:0">
+            <img src="/images/web/btn_write.png" width="40">
+          </button>
+        </a>
+
+            <span style="display:inline-block; float:left;">
+                <button type="button" class="navbar-toggle"
+                        style="float:left; margin-left:1em; padding:0"
+                        data-toggle="collapse"
+                        data-target="#Search_bar">
+                  <img src="/images/web/btn_search2.png" width="40">
+                </button>
+            </span>
+        <a href="/web">
+          <img src="/images/web/login_title.png" width="100"
+               style="float:left; position:absolute; top:1.5em; left:50%; margin-left:-4em; margin-bottom:10px">
+        </a>
+      </div>
+
+      <!-- 모바일 탑메뉴 끝 -->
+      <!-- PC 상단 우측 메뉴 -->
+      <div class="collapse navbar-collapse noPadding" style="float:right;">
+        <div class="navbar-right menustyle">
+          <ul class="nav navbar-nav">
+            <li><a href="/write_first"><p><img src="/images/web/btn_write.png"
+                                               width="40px">
+                </p></a></li>
+            <li id="login"><a href="/login"><p><img src="/images/web/btn_login.png"
+                                                    width="112px"></p></a></li>
+            <li id="logout"><a href="#" data-toggle="collapse" data-target="#myNavbar_2"><p><img
+                      src="/images/web/ico_pro.png" width="40px"></p></a></li>
+
+            <li><a href="#" data-toggle="collapse" data-target="#myNavbar"><p>
+                  <img src="/images/web/btn_menu.png" width="40px"></p></a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- 검색 바 -->
+      <form action="/" method="get">
+        <div class="collapse navbar-collapse noPadding"
+             style="float:left; min-width:300px; overflow:hidden;"
+             id="Search_bar">
+          <div class="navbar-right menustyle">
+            <ul class="nav navbar-nav">
+              <li>
+                <span style="display:inline-block;">
+                  <input type="text" class="innerbtn" placeholder="검색하기" name="search"
+                         style="width:70%; min-width:200px;height:40px; margin-top:15px; margin-left:2em; padding-left:1em; font-size:18px; border:1px solid #e8e8e8;">
+                  <input type="image" src="/images/web/btn_search.png"
+                         style="margin-left: 1em; width:30px; margin-top:15px; padding-left:1em; "/>
+                </span></li>
+            </ul>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="row">
+      <div class="collapse" style="margin: auto; height: auto;" id="myNavbar">
+        <div style="width:100%;padding-bottom:15px; ">
+          <ul class="nav navbar-nav slide_menu" style="margin-left:1em">
+            <li class="on"><a href="/?search=가구/매트/안전용품" style="color:#f79240"
+                              class="f_16px f_bold f_tcolor">가구/매트/안전용품</a>
+            </li>
+            <li><a href="/?search=건강" style="color:#f79240" class="f_16px f_bold f_tcolor">건강</a>
+            </li>
+            <li><a href="/?search=기저귀" style="color:#f79240" class="f_16px f_bold f_tcolor">기저귀</a>
+            </li>
+            <li><a href="/?search=목욕/위생/스킨케어" style="color:#f79240" class="f_16px f_bold f_tcolor">목욕/위생/스킨케어</a>
+            </li>
+            <li><a href="/?search=물티슈" style="color:#f79240" class="f_16px f_bold f_tcolor">물티슈</a>
+            </li>
+            <li><a href="/?search=분유/이유식" style="color:#f79240"
+                   class="f_16px f_bold f_tcolor">분유/이유식</a>
+            </li>
+            <li><a href="/?search=수유/이유용품" style="color:#f79240" class="f_16px f_bold f_tcolor">수유/이유용품</a>
+            </li>
+            <li><a href="/?search=완구/교구" style="color:#f79240"
+                   class="f_16px f_bold f_tcolor">완구/교구</a>
+            </li>
+            <li><a href="/?search=유모차/외출용품" style="color:#f79240" class="f_16px f_bold f_tcolor">유모차/외출용품</a>
+            </li>
+            <li><a href="/?search=유아동식품" style="color:#f79240"
+                   class="f_16px f_bold f_tcolor">유아동식품</a>
+            </li>
+            <li><a href="/?search=임신/출산준비물" style="color:#f79240" class="f_16px f_bold f_tcolor">임신/출산준비물</a>
+            </li>
+            <li><a href="/?search=패션의류잡화" style="color:#f79240"
+                   class="f_16px f_bold f_tcolor">패션의류잡화</a>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>

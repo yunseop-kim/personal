@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
+</head>
+<body>
+<h1><%= title %></h1>
+<a href="/admin/member/<%=page%>">리스트</a><br>
+<table width="400" class="table">
+  <tr>
+    <th >아이디</th>
+    <th >이름</th>
+    <th >레벨</th>
+    <th >경험치</th>
+    <th >조회수 Total</th>
+    <th >찜수</th>
+    <th >댓글수</th>
+    <th >좋아요수</th>
+    <th >게시글수</th>
+  </tr>
+  <tr>
+    <td><%=data.memberId%></td>
+    <td><%=data.memberName%></td>
+    <td><%=data.memberLevel%></td>
+    <td><%=data.memberExp%></td>
+    <td><%=data.memberHitCnt%></td>
+    <td><%=data.memberZzimCnt%></td>
+    <td><%=data.totalReplies%></td>
+    <td><%=data.totalLikes%></td>
+    <td><%=data.memberReviewCnt%></td>
+  </tr>
+
+  <tr>
+    <td colspan="9">
+        <span id="span1" >
+            <form action="/admin/todaysDelete" method="post" name="frm1" id="frm1" class="form-inline">
+              <input type="button" value="수정" id="modify" class="btn btn-primary"/>
+              <input type="hidden" name="page" value="<%=page%>"/>
+              <input type="hidden" name="todaysCareNum" value="<%=data.todaysCareNum%>"/>
+              <input type="button" value="삭제" id="delete" class="btn btn-warning"/>
+            </form>
+        </span>
+    </td>
+  </tr>
+</table>
+</body>
+<script src="/javascripts/jquery-1.11.2.js"></script>
+<script>
+  $(function () {
+    <%if(!memberId && memberId!='admin'){%>
+    alert('로그인을 안하거나 관리자가 아니네요');
+    history.back();
+    <%} %>
+  })
+
+  $(function () {
+    $("#modify").click(function() {
+      location.href = "/admin/todaysModify/<%=page%>/<%=data.todaysCareNum%>"
+    });
+    $("#delete").click(function() {
+      if(confirm("정말 삭제하시겠습니까??") == true){
+        document.frm1.submit();
+      } else{
+        return;
+      }
+    });
+  });
+
+</script>
+
+</html>

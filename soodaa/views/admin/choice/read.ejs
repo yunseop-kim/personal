@@ -1,0 +1,119 @@
+<!-- read.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title><%= title %></title>
+	<link rel='stylesheet' href='/stylesheets/style.css' />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+	<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<h1><%= title %></h1>
+			<table width="400" class="table">
+				<tr>
+					<th>번호</th>
+					<th>카테고리</th>
+					<th>ID</th>
+					<th>이름</th>
+					<th>제목</th>
+					<th>등록일</th>
+					<th>마감일</th>
+					<th>항목1</th>
+					<th>항목2</th>
+					<th>항목3</th>
+					<th>항목4</th>
+					<th>총계</th>
+					<th>마감여부</th>
+					<th>삭제여부</th>
+				</tr>
+				<tr>
+					<td><%=data.voteNum%></td>
+					<td><%=data.voteCategory%></td>
+					<td><%=data.memberId%></td>
+					<td><%=data.memberName%></td>
+					<td><%=data.voteTitle%></td>
+					<td><%=data.voteRegdate%></td>
+					<td><%=data.voteFinalDate%></td>
+					<td><%=data.voteContent1%> : <%=data.voteContentCnt1%>개<br><img src="<%= data.votePicture1%>" height="100px" width="100px"/></td>
+					<td><%=data.voteContent2%> : <%=data.voteContentCnt2%>개<br><img src="<%= data.votePicture2%>" height="100px" width="100px"/></td>
+					<td><%=data.voteContent3%> : <%=data.voteContentCnt3%>개<br><img src="<%= data.votePicture3%>" height="100px" width="100px"/></td>
+					<td><%=data.voteContent4%> : <%=data.voteContentCnt4%>개<br><img src="<%= data.votePicture4%>" height="100px" width="100px"/></td>
+					<td><%=data.voteTotalCnt%></td>
+					<td><%=data.finishFlag%></td>
+					<td><%=data.voteIsDeleted%></td>
+				</tr>
+				<tr>
+				  <th colspan="2">댓글</th>
+				  <th colspan="2">글쓴이</th>
+				  <th colspan="6">내용</th>
+				  <th colspan="2">날짜</th>
+				  <th colspan="2">삭제여부</th>
+				</tr>
+				<% for(var i = 0; i < data.voteComments.length, item = data.voteComments[i]; i++){ %>
+				<tr>
+				  <td colspan="2"><%= i + 1 %></td>
+				  <td colspan="2"><%= item.memberId %> </td>
+				  <td colspan="6"><%= item.voteReplyContent %></td>
+				  <td colspan="2"><%= item.voteReplyRegdate %></td>
+				  <td colspan="2">
+				  	<form method="post" class="form-inline">
+				  		<%if(item.voteReplyIsDeleted == 0){%>
+				  		<input type="hidden" name="voteReplyNum" value="<%=item.voteReplyNum%>"/>
+				  		<input type="submit" formaction="/admin/voteReplyDelete" value="삭제" class="btn btn-warning"/>
+				  		<%}else{%>
+				  		<input type="hidden" name="voteReplyNum" value="<%=item.voteReplyNum%>"/>
+				  		<input type="submit" formaction="/admin/voteReplyDelete" value="삭제취소" class="btn btn-warning"/>
+				  		<%}%>
+				  	</form>
+				  </td>
+				</tr>
+				<% } %>
+				<tr>
+					<td colspan="14">
+						<span id="span1" >
+							<form action="/admin/voteDelete" method="post" name="frm1" id="frm1" class="form-inline">
+								<%if(data.voteIsDeleted == 0){%>
+								<input type="hidden" name="voteNum" value="<%=data.voteNum%>"/>
+								<input type="button" value="삭제" id="delete" class="btn btn-warning"/>
+								<%}else{%>
+								<input type="hidden" name="voteNum" value="<%=data.voteNum%>"/>
+								<input type="button" value="삭제취소" id="delete" class="btn btn-warning"/>
+								<%}%>
+								<input type="button" onclick="location.href='/admin/choice/1'" value='목록' class="btn btn-default"><br>
+							</form>
+						</span>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+		</body>
+
+		<script src="/javascripts/jquery-1.11.2.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+		<script>
+		$(function () {
+			<%if(!memberId && memberId!='admin'){%>
+				alert('로그인을 안하거나 관리자가 아니네요');
+				history.back();
+				<%} %>
+			})
+
+		$(function () {
+			$("#delete").click(function() {
+				if(confirm("정말 삭제하시겠습니까??") == true){
+					document.frm1.submit();
+				} else{
+					return;
+				}
+			});
+		});
+		</script>
+
+		</html>

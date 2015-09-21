@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Soodaa::수다</title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <script src="/javascripts/jquery-1.11.2.js"></script>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<% if(memberId){ %>
+<div class="collapse" id="myNavbar_2"
+     style="position:relative; width:100%; height:100%; padding-bottom:1em; z-index:90000;">
+  <div
+      style="position:absolute;  z-index:90001; left:50%; top:50px; margin-left;-125px; max-width:980px;margin:auto;padding-bottom:15px; padding-top:15px;">
+    <ul class="nav navbar-nav"
+        style="width:250px; margin-left:-125px; float:right;  background-color:#fff; padding:2em">
+
+
+      <li style="width:100%; border-bottom:1px solid #e8e8e8; padding:0.5em;">
+                        <span style="float:right">
+                            <a href="/user/45">
+                              <%= data.memberName %></a> (엄마)</span>
+      </li>
+      <li style="width:100%; border-bottom:1px solid #e8e8e8; padding:0.5em;">
+        email : <span style="float:right"><%= data.memberId %></span></li>
+      <li style="width:100%; border-bottom:1px solid #e8e8e8; padding:0.5em;">
+        <img src="images/web/ico_like.png"
+             style="width:12px; margin-left:4px; margin-right:4px;">
+        Like : <em style="float:right"><%= data.totalLikes %></em></li>
+      <li style="width:100%; border-bottom:1px solid #e8e8e8; padding:0.5em;">
+        <img src="images/web/ico_view.png"
+             style="width:13px; margin-left:4px; margin-right:3px;">
+        View : <em style="float:right"><%= data.totalHits %></em></li>
+      <li style="width:100%; border-bottom:1px solid #e8e8e8; padding:0.5em;">
+        <img src="images/web/ico_reply.png" style="width:20px">
+        작성글 : <em style="float:right"><%= data.totalReviews %></em></li>
+      <li style="width:100%; padding-top:0.5em">
+        <button class="s_btn" style="border:0"
+                onclick="location.replace('/mypage/<%= data.memberId %>');">개인정보수정
+        </button>
+                        <span style="float:right">
+                                <button class="s_btn" style="border:0"
+                                        onclick="location.replace('/logout');">로그아웃
+                                </button>
+                        </span></li>
+
+
+    </ul>
+  </div>
+</div>
+<% } %>
+
+<nav class="navbar navbar-default navbar-fixed-top noBorder" role="navigation">
+
+  <div class="container">
+    <div class="row">
+
+      <!-- 모바일 탑메뉴 시작 여기서부터 반영해야됨! 11:47-->
+      <div class="navbar-header">
+
+        <button type="button" class="navbar-toggle" style="padding:0; border:0;"
+                data-toggle="collapse"
+                data-target="#myNavbar">
+          <img src="images/web/btn_menu.png" width="40">
+        </button>
+
+        <button type="button" class="navbar-toggle" style="float:right; margin-left:1em; padding:0"
+                data-toggle="collapse" data-target="#myNavbar_2"><img
+              src="images/web/ico_pro.png" width="40"></button>
+
+        <a href="/write_first">
+          <button type="button" class="navbar-toggle" style="float:left; padding:0">
+            <img src="images/web/btn_write.png" width="40">
+          </button>
+        </a>
+
+            <span style="display:inline-block; float:left;">
+                <button type="button" class="navbar-toggle"
+                        style="float:left; margin-left:1em; padding:0"
+                        data-toggle="collapse"
+                        data-target="#Search_bar">
+                  <img src="images/web/btn_search2.png" width="40">
+                </button>
+            </span>
+        <a href="/web">
+          <img src="images/web/login_title.png" width="100"
+               style="float:left; position:absolute; top:1.5em; left:50%; margin-left:-4em; margin-bottom:10px">
+        </a>
+      </div>
+
+      <!-- 모바일 탑메뉴 끝 -->
+      <!-- PC 상단 우측 메뉴 -->
+      <div class="collapse navbar-collapse noPadding" style="float:right;">
+        <div class="navbar-right menustyle">
+          <ul class="nav navbar-nav">
+            <li><a href="/write_first"><p><img src="images/web/btn_write.png"
+                                               width="40px">
+                </p></a></li>
+            <li id="login"><a href="/login"><p><img src="images/web/btn_login.png"
+                                                    width="112px"></p></a></li>
+            <li id="logout"><a href="#" data-toggle="collapse" data-target="#myNavbar_2"><p><img
+                      src="images/web/ico_pro.png" width="40px"></p></a></li>
+
+            <li><a href="#" data-toggle="collapse" data-target="#myNavbar"><p>
+                  <img src="images/web/btn_menu.png" width="40px"></p></a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- 검색 바 -->
+      <form action="/" method="get">
+        <div class="collapse navbar-collapse noPadding"
+             style="float:left; min-width:300px; overflow:hidden;"
+             id="Search_bar">
+          <div class="navbar-right menustyle">
+            <ul class="nav navbar-nav">
+              <li>
+                <span style="display:inline-block;">
+                  <input type="text" class="innerbtn" placeholder="검색하기" name="search"
+                         style="width:70%; min-width:200px;height:40px; margin-top:15px; margin-left:2em; padding-left:1em; font-size:18px; border:1px solid #e8e8e8;">
+                  <input type="image" src="images/web/btn_search.png"
+                         style="margin-left: 1em; width:30px; margin-top:15px; padding-left:1em; "/>
+                </span></li>
+            </ul>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="row">
+      <div class="collapse" style="margin: auto; height: auto;" id="myNavbar">
+        <div style="width:100%;padding-bottom:15px; ">
+          <ul class="nav navbar-nav slide_menu" style="margin-left:1em">
+            <li class="on"><a href="/?search=가구/매트/안전용품" style="color:#f79240"
+                              class="f_16px f_bold f_tcolor">가구/매트/안전용품</a>
+            </li>
+            <li><a href="/?search=건강" style="color:#f79240" class="f_16px f_bold f_tcolor">건강</a>
+            </li>
+            <li><a href="/?search=기저귀" style="color:#f79240" class="f_16px f_bold f_tcolor">기저귀</a>
+            </li>
+            <li><a href="/?search=목욕/위생/스킨케어" style="color:#f79240" class="f_16px f_bold f_tcolor">목욕/위생/스킨케어</a>
+            </li>
+            <li><a href="/?search=물티슈" style="color:#f79240" class="f_16px f_bold f_tcolor">물티슈</a>
+            </li>
+            <li><a href="/?search=분유/이유식" style="color:#f79240" class="f_16px f_bold f_tcolor">분유/이유식</a>
+            </li>
+            <li><a href="/?search=수유/이유용품" style="color:#f79240" class="f_16px f_bold f_tcolor">수유/이유용품</a>
+            </li>
+            <li><a href="/?search=완구/교구" style="color:#f79240"
+                   class="f_16px f_bold f_tcolor">완구/교구</a>
+            </li>
+            <li><a href="/?search=유모차/외출용품" style="color:#f79240" class="f_16px f_bold f_tcolor">유모차/외출용품</a>
+            </li>
+            <li><a href="/?search=유아동식품" style="color:#f79240"
+                   class="f_16px f_bold f_tcolor">유아동식품</a>
+            </li>
+            <li><a href="/?search=임신/출산준비물" style="color:#f79240" class="f_16px f_bold f_tcolor">임신/출산준비물</a>
+            </li>
+            <li><a href="/?search=패션의류잡화" style="color:#f79240" class="f_16px f_bold f_tcolor">패션의류잡화</a>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</nav>
+
+
+<div class="container-fluid noPadding" style="background-color:#e8e8e8">
+
+  <div class="container textstyle">
+
+    <div class="row text-center latestProjects" id="infinite">
+
+      <div class="col-md-4 col-sm-6">
+
+        <p><a href="/view/118">
+            <img class="imgsize"
+                 src="images/web/uploads/512d957bdd892f6680e3632bd723251d6cda60d3d9c8210ba98e3b4cef3b6a75.jpg"
+                 height="217px" width="260px" alt="썸네일">
+          </a></p>
+
+        <div id="star">
+          <ul id="star0" class="star" title="Rate This!">
+            <li id="starCur0" class="curr" title="98" style="width: 68px;"></li>
+          </ul>
+        </div>
+
+        <p class="p_info1" style="font-size: 13px">블라블라앤베이비</p>
+
+        <p class="p_info1" style="font-size: 8px; height: 80px; cursor: pointer"
+           onclick="location.href='/view/118'"><strong>바이올렛 물티슈 20매 (휴대용)</strong></p>
+
+        <p class="p_info2"><a href="/user/5" style="font-size: 16px">이아진</a></p>
+
+        <p class="p_info3" style="margin-bottom:40px">
+          <img src="/static/image/ico_like.png" style="width:12px">0
+          <img src="/static/image/ico_reply.png" style="width:13px">0
+          <img src="/static/image/ico_view.png" style="width:20px">2</p>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Footer -->
+
+  <div class="container footer">
+    <div class="col-xs-12 col-md-8 noPadding">
+      <p id="footerLogoText">Soodaa © 2015 | <a href="/privacy">개인정보취급방침</a> | <a href="/ask">운영자에게
+          문의하기</a>
+      </p>
+    </div>
+    <div class="col-xs-12 col-md-4 noPadding">
+      <div class="socialButtons responsiveAlign">
+        <a href="#" class="noPadding">
+          <img src="/images/twitter.svg" alt="image1" onclick="alert('준비중입니다');">
+        </a>
+        <a href="#" class="noPadding">
+          <img src="/images/facebook.svg" alt="image1" onclick="alert('준비중입니다');">
+        </a>
+        <a href="#" class="noPadding">
+          <img src="/images/behance.svg" alt="image1" onclick="alert('준비중입니다');">
+        </a>
+      </div>
+    </div>
+  </div>
+  <!--footer-->
+
+</div>
+
+
+</body>
+<script>
+  $(function () {
+    <%if (!memberId) {%>
+    $("#login").show();
+    $("#logout").hide();
+    <%} else {%>
+    $("#login").hide();
+    $("#logout").show();
+    <%}%>
+  })
+
+</script>
+</html>

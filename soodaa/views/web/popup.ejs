@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>팝업</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <SCRIPT language="javascript">
+    <!--
+    function setCookie( name, value, expiredays )
+    {
+      var todayDate = new Date();
+      todayDate.setDate( todayDate.getDate() + expiredays );
+      document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+    }
+
+    function closeWin(){
+      setCookie("close20090524","close20090524",1);
+      window.close();
+    }
+    // -->
+  </SCRIPT>
+</head>
+<body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<table border="0" width="300" height="400" cellpadding="0" cellspacing="0">
+  <form name="checkClose">
+    <tr>
+      <td colspan="2" height="377">
+        <img src="/images/uploads/event/<%=result.imageUrl%>" width="422" height="570" border="0" alt="클릭"></td>
+    </tr>
+    <tr>
+      <td width="250" height="23" valign="top" bgcolor="#000000">
+        <input type="checkbox" name="name1" onfocus="this.blur()">
+        <font color="white">오늘 하루 이 창 띄우지 않음</font>
+
+      </td>
+      <td width="50" valign="bottom" bgcolor="#000000">
+        <a href="#" onclick="closeWin()">[닫기]</a>
+      </td>
+    </tr>
+  </form>
+</table>
+</body>
+</html>

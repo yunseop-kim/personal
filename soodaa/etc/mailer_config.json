@@ -1,0 +1,7 @@
+{
+  "service": "Gmail",
+  "auth": {
+    "user": "soodaahelpdesk@gmail.com",
+    "pass": "soodaahelpdesk!"
+  }
+}

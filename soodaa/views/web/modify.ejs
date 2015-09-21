@@ -1,0 +1,346 @@
+<% layout('layout') -%>
+
+    <div class="container-fluid noPadding" style="background-color:#e8e8e8;">
+        <div class="container textstyle">
+            <div class="row text-left latestProjects" style="background-color:#fff;">
+                <form action="/web/modify" method="post" id="frm1" enctype=multipart/form-data>
+                  <input type="hidden" name="reviewNum" value="<%=data[0].reviewNum%>" >
+                  <input type="hidden" name="productNum" value="<%=data[0].productNum%>" >
+                    <div class="col-md-12 col-sm-6" style="display:inline-block;text-align:left; width:100%;">
+                        <ul>
+                            <li style="margin:1em auto; list-style:none;"><strong style="font-size:1.5em">리뷰작성</strong>
+                            </li>
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                제품명
+                                <input type="text" placeholder="제품명" value="<%=data[0].productName%>" disabled
+                                       style="width:100%;  height:3em; padding:0.5em;">
+                            </li>
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                브랜드명
+                                <input type="text" placeholder="제품명" value="<%=data[0].productBrand%>" disabled
+                                       style="width:100%; height:3em; padding:0.5em;">
+                            </li>
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                구매장소
+                                <select class="form-control" name="reviewWhere"
+                                        style="width:100%; height:3em; padding:0.5em;">
+                                    <option <%=(data[0].reviewWhere == '소셜커머스') ? selected = "selected" : ""%>>소셜커머스</option>
+                                    <option <%=(data[0].reviewWhere == '오픈마켓') ? selected = "selected" : ""%>>오픈마켓</option>
+                                    <option <%=(data[0].reviewWhere == '쇼핑몰') ? selected = "selected" : ""%>>쇼핑몰</option>
+                                    <option <%=(data[0].reviewWhere == '로드샵') ? selected = "selected" : ""%>>로드샵</option>
+                                    <option <%=(data[0].reviewWhere == '홈쇼핑') ? selected = "selected" : ""%>>홈쇼핑</option>
+                                    <option <%=(data[0].reviewWhere == '백화점') ? selected = "selected" : ""%>>백화점</option>
+                                    <option <%=(data[0].reviewWhere == '대형마트') ? selected = "selected" : ""%>>대형마트</option>
+                                    <option <%=(data[0].reviewWhere == 'H&B스토어') ? selected = "selected" : ""%>>H&B스토어</option>
+                                    <option <%=(data[0].reviewWhere == '해외구매') ? selected = "selected" : ""%>>해외구매</option>
+                                    <option <%=(data[0].reviewWhere == '약국,병원') ? selected = "selected" : ""%>>약국,병원</option>
+                                    <option <%=(data[0].reviewWhere == '무료나눔') ? selected = "selected" : ""%>>무료나눔</option>
+                                    <option <%=(data[0].reviewWhere == '중고거래') ? selected = "selected" : ""%>>중고거래</option>
+                                    <option <%=(data[0].reviewWhere == '선물') ? selected = "selected" : ""%>>선물</option>
+                                    <option <%=(data[0].reviewWhere == '기타') ? selected = "selected" : ""%>>기타</option>
+                                </select>
+                            </li>
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                구입년도
+                                <select class="form-control" name="year"
+                                        style="width:100%; height:3em; padding:0.5em;">
+                                    <option value="2010" >~2010년</option>
+                                    <option value="2011" >2011년</option>
+                                    <option value="2012" >2012년</option>
+                                    <option value="2013" >2013년</option>
+                                    <option value="2014" >2014년</option>
+                                    <option value="2015" selected>2015년</option>
+                                </select>
+                            </li>
+
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                별점
+                                <select class="form-control" name="reviewStar"
+                                        style="width:100%; height:3em; padding:0.5em;">
+                                    <option value="0.5" <%=(data[0].reviewStar==0.5 ) ? selected = "selected" : ""%>>0.5점</option>
+                                    <option value="1.0" <%=(data[0].reviewStar==1 ) ? selected = "selected" : ""%>>1점</option>
+                                    <option value="1.5" <%=(data[0].reviewStar==1.5 ) ? selected = "selected" : ""%>>1.5점</option>
+                                    <option value="2.0" <%=(data[0].reviewStar==2 ) ? selected = "selected" : ""%>>2점</option>
+                                    <option value="2.5" <%=(data[0].reviewStar==2.5 ) ? selected = "selected" : ""%>>2.5점</option>
+                                    <option value="3" <%=(data[0].reviewStar==3 ) ? selected = "selected" : ""%>>3점</option>
+                                    <option value="3.5" <%=(data[0].reviewStar==3.5 ) ? selected = "selected" : ""%>>3.5점</option>
+                                    <option value="4" <%=(data[0].reviewStar==4 ) ? selected = "selected" : ""%>>4점</option>
+                                    <option value="4.5" <%=(data[0].reviewStar==4.5 ) ? selected = "selected" : ""%>>4.5점</option>
+                                    <option value="5" <%=(data[0].reviewStar==5 ) ? selected = "selected" : ""%>>5점</option>
+                                </select>
+                            </li>
+
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                <input type="text" id="reviewPrice" name="reviewPrice" value="<%=data[0].reviewPrice%>"
+                                       placeholder="가격 (예: 40000)"
+                                       style="width:100%; height:3em; padding:0.5em;" >
+                            </li>
+
+
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                <input type="text" id="reviewGood" name="reviewGood" value="<%=data[0].reviewGood%>"
+                                       placeholder="한줄 장점"
+                                       style="width:100%; height:3em; padding:0.5em;" >
+                            </li>
+
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                <input type="text" id="reviewBad" name="reviewBad" value="<%=data[0].reviewBad%>"
+                                       placeholder="한줄 단점"
+                                       style="width:100%; height:3em; padding:0.5em;" >
+                            </li>
+
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                <input type="text" id="reviewRecommandPeople" name="reviewRecommandPeople" value="<%=data[0].reviewRecommandPeople%>"
+                                       placeholder="추천해주고 싶은 사람 (예: 귀찮은거 싫어하시는 분을 위한 제품!)"
+                                       style="width:100%; height:3em; padding:0.5em;" >
+                            </li>
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                <input type="text" id="reviewKnowhow" name="reviewKnowhow" value="<%=data[0].reviewKnowhow%>"
+                                       placeholder="할인노하우 (예: 육아사랑카드 20%할인)"
+                                       style="width:100%; height:3em; padding:0.5em;" >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-12 col-sm-6" style="display:inline-block;text-align:left; width:100%;">
+                        <li style="width:100%; margin:1em auto; list-style:none;">
+                            <textarea cols="40" rows="10" placeholder="솔직한 리뷰 부탁드립니다 ^^" id="reviewContent" name="reviewContent"
+                                      style="width:100%; min-width:300px; height:300px; padding:0.5em; vertical-align:top;" ><%=data[0].reviewContent%></textarea>
+                        </li>
+
+                        <hr />
+                        <li style="width:100%; margin:1em auto; list-style:none; text-align: center">
+                            사진은 수정할 수 없습니다. 수정을 원하시면 삭제 후 재작성해주세요
+                        </li>
+
+
+                    </div>
+
+                    <div class="col-md-12 col-sm-6" style="margin:1em auto; text-align:center;">
+                        <button type="submit" class="s_btn"
+                                style="margin:1em auto;; margin-right:2em; width:200px; height:50px;">수정 등록하기
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+
+        <!-- Footer -->
+
+        <div class="container footer">
+            <div class="col-xs-12 col-md-8 noPadding">
+                <p id="footerLogoText">Soodaa © 2015 | <a href="/privacy">개인정보취급방침</a> | <a href="/ask">운영자에게 문의하기</a></p>
+            </div>
+            <div class="col-xs-12 col-md-4 noPadding">
+                <div class="socialButtons responsiveAlign">
+                    <a href="#" class="noPadding">
+                        <img src="/static/image/twitter.svg" alt="image1"
+                             onclick="alert('준비중입니다');">
+                    </a>
+                    <a href="#" class="noPadding">
+                        <img src="/static/image/facebook.svg" alt="image1"
+                             onclick="alert('준비중입니다');">
+                    </a>
+                    <a href="#" class="noPadding">
+                        <img src="/static/image/behance.svg" alt="image1"
+                             onclick="alert('준비중입니다');">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+
+        function delete_file(file, previewId) {
+            var preview = document.getElementById(previewId); //div id
+            var prevImg = document.getElementById("prev_" + previewId); //이전에 미리보기가 있다면 삭제
+
+            if (prevImg) {
+                preview.removeChild(prevImg);
+            }
+            document.getElementById(file).value = "";
+        }
+
+        function previewImage(targetObj, previewId) {
+
+            var preview = document.getElementById(previewId); //div id
+            var ua = window.navigator.userAgent;
+
+            if (ua.indexOf("MSIE") > -1) {//ie일때
+
+                targetObj.select();
+
+                try {
+                    var src = document.selection.createRangeCollection()[0].text;
+                    var ie_preview_error = document
+                            .getElementById("ie_preview_error_" + previewId);
+
+                    if (ie_preview_error) {
+                        preview.removeChild(ie_preview_error); //error가 있으면 delete
+                    }
+
+                    var img = document.getElementById(previewId); //이미지가 뿌려질 곳
+
+                    img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
+                    + src + "', sizingMethod='scale')";
+
+                } catch (e) {
+                    if (!document.getElementById("ie_preview_error_" + previewId)) {
+                        var info = document.createElement("<p>");
+                        info.id = "ie_preview_error_" + previewId;
+                        info.innerHTML = "a";
+                        preview.insertBefore(info, null);
+                    }
+                }
+            } else { //ie가 아닐때
+                var files = targetObj.files;
+                for (var i = 0; i < files.length; i++) {
+                    console.log('!!')
+                    var file = files[i];
+
+
+                    var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
+                    if (!file.type.match(imageType))
+                        continue;
+
+                    var prevImg = document.getElementById("prev_" + previewId); //이전에 미리보기가 있다면 삭제
+                    if (prevImg) {
+                        preview.removeChild(prevImg);
+                    }
+
+
+                    var img = document.createElement("img");
+
+                    img.id = "prev_" + previewId;
+                    img.classList.add("obj");
+                    img.file = file;
+                    img.style.width = '100px'; //기본설정된 div의 안에 뿌려지는 효과를 주기 위해서 div크기와 같은 크기를 지정해준다.
+                    img.style.height = '100px';
+
+                    preview.appendChild(img);
+
+                    if (window.FileReader) { // FireFox, Chrome, Opera 확인.
+                        var reader = new FileReader();
+                        reader.onloadend = (function (aImg) {
+                            return function (e) {
+                                aImg.src = e.target.result;
+                            };
+                        })(img);
+                        reader.readAsDataURL(file);
+                    } else { // safari is not supported FileReader
+                        //alert('not supported FileReader');
+                        if (!document.getElementById("sfr_preview_error_"
+                                + previewId)) {
+                            var info = document.createElement("p");
+                            info.id = "sfr_preview_error_" + previewId;
+                            info.innerHTML = "not supported FileReader";
+                            preview.insertBefore(info, null);
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="/static/js/myscript.js"></script>
+<script>
+$(function(){
+        $("#frm1").validate({
+            //validation이 끝난 이후의 submit 직전 추가 작업할 부분
+            submitHandler: function() {
+                var f = confirm("작성을 완료하겠습니까?");
+                if(f){
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+            //규칙
+            rules: {
+                reviewPrice: {
+                    required : true
+                },
+                reviewGood: {
+                    required : true
+                },
+                reviewBad: {
+                    required : true
+                },
+                reviewRecommandPeople: {
+                    required : true
+                },
+                reviewKnowhow: {
+                    required : true
+                },
+                reviewContent: {
+                    required : true
+                },
+                reviewPicture1 : {
+                    required : true
+                }
+            },
+            //규칙체크 실패시 출력될 메시지
+            messages : {
+                reviewPrice: {
+                    required : "가격을 입력하세요"
+                },
+                reviewGood: {
+                    required : "장점을 입력하세요"
+                },
+                reviewBad: {
+                    required : "단점을 입력하세요"
+                },
+                reviewRecommandPeople: {
+                    required : "추천하고 싶은 사람을 입력하세요"
+                },
+                reviewKnowhow: {
+                    required : "할인노하우를 입력하세요"
+                },
+                reviewContent: {
+                    required : "내용을 입력하세요"
+                },
+                reviewPicture1: {
+                    required : "필수"
+                }
+            }
+        });
+})
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    // 로그인 했으면
+
+    ga('create', 'UA-61477451-1', { 'userId': '45' });
+
+
+
+    // 기본 설정
+    ga('send', 'pageview');
+    // 로그인한 User-ID를 사용하여 User-ID를 설정합니다.
+
+</script>
+
+
+
+
+
+</body>
+</html>

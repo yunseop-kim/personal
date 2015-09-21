@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Soodaa::수다</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+  <link rel="icon" type="/image/x-icon" href="/images/favicon.ico"/>
+  <link rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet"
+  href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/custom.css"/>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="/stylesheets/bootstrap.min.js"></script>
+  <script src="/javascripts/myscript.js"></script>
+
+</head>
+<body>
+  <!-- 개인화영역 시작 -->
+  <% if(memberId != undefined ){ %>
+  <div class="modal" id="myNavbar_2" >
+    <div style="float:left; position:absolute; left:50%; margin-left:-7.5em; width:200px; top:150px;  background-color: white">
+      <ul class="nav navbar-nav"
+        style="width:250px; margin-left:-125px; float:right;  background-color:#fff; padding:2em">
+            <li style="width:100%; border-bottom:1px solid #e8e8e8; padding:0.5em;">
+                <span style="float:right">
+                    <a href="/web/memberPage/<%=myInform.memberId%>">
+                        <%=myInform.memberName%></a> (<% if(myInform.memberGender == 1){ %>아빠<% }else if(myInform.memberGender == 2){ %>엄마<% }else if(myInform.memberGender == 3){ %>예비아빠<% }else if(myInform.memberGender == 4){ %>예비엄마<%}%>)</span>
+            </li>
+            <li style="width:100%; border-bottom:1px solid #e8e8e8; padding:0.5em;">
+                email : <span style="float:right"><%=myInform.memberEmail%></span></li>
+            <li style="width:100%; border-bottom:1px solid #e8e8e8; padding:0.5em;">
+                <img src="/image/ico_like.png"
+                     style="width:12px; margin-left:4px; margin-right:4px;">
+                Like : <em style="float:right"><%=myInform.totalLikes%></em></li>
+            <li style="width:100%; border-bottom:1px solid #e8e8e8; padding:0.5em;">
+                <img src="/image/ico_view.png"
+                     style="width:13px; margin-left:4px; margin-right:3px;">
+                View : <em style="float:right"><%=myInform.totalHits%></em></li>
+            <li style="width:100%; border-bottom:1px solid #e8e8e8; padding:0.5em;">
+                <img src="/image/ico_reply.png" style="width:20px">
+                작성글 : <em style="float:right"><%=myInform.totalReviews%></em></li>
+            <li style="width:100%; padding-top:0.5em">
+                <button class="s_btn" style="border:0"
+                        onclick="location.replace('/web/mypage/');">개인정보수정
+                </button>
+                <span style="float:right">
+                  <button class="s_btn" style="border:0" onclick="location.replace('/web/logout');">로그아웃
+                  </button>
+                </span>
+            </li>
+       </ul>
+    </div>
+  </div>
+<%}%>
+              <!-- 카테고리 시작 -->
+              <div class="collapse "
+              style="position:relative; top:0px; left:0;  z-index:80000; max-width:980px; margin:auto; height:auto; background-color:#fff; "
+              id="myNavbar">
+              <div style="width:100%;padding-bottom:15px; padding-top:15px;">
+
+                <ul class="nav navbar-nav slide_menu" style="margin-left:1em">
+                  <li class="on"><a href="/web/search=가구/매트/안전용품" style="color:#f79240"
+                    class="f_16px f_bold f_tcolor">가구/매트/안전용품</a>
+                  </li>
+                  <li><a href="/web/search=건강" style="color:#f79240" class="f_16px f_bold f_tcolor">건강</a>
+                  </li>
+                  <li><a href="/web/search=기저귀" style="color:#f79240" class="f_16px f_bold f_tcolor">기저귀</a>
+                  </li>
+                  <li><a href="/web/search=목욕/위생/스킨케어" style="color:#f79240" class="f_16px f_bold f_tcolor">목욕/위생/스킨케어</a>
+
+                  </li>
+                  <li><a href="/web/search=물티슈" style="color:#f79240" class="f_16px f_bold f_tcolor">물티슈</a>
+
+                  </li>
+                  <li><a href="/web/search=분유/이유식" style="color:#f79240" class="f_16px f_bold f_tcolor">분유/이유식</a>
+
+                  </li>
+                  <li><a href="/web/search=수유/이유용품" style="color:#f79240"
+                   class="f_16px f_bold f_tcolor">수유/이유용품</a>
+
+                 </li>
+                 <li><a href="/web/search=완구/교구" style="color:#f79240" class="f_16px f_bold f_tcolor">완구/교구</a>
+
+                 </li>
+                 <li><a href="/web/search=유모차/외출용품" style="color:#f79240"
+                   class="f_16px f_bold f_tcolor">유모차/외출용품</a>
+
+                 </li>
+                 <li><a href="/web/search=유아동식품" style="color:#f79240" class="f_16px f_bold f_tcolor">유아동식품</a>
+
+                 </li>
+                 <li><a href="/web/search=임신/출산준비물" style="color:#f79240" class="f_16px f_bold f_tcolor">임신/출산준비물</a>
+
+                 </li>
+                 <li>
+                  <a href="/web/search=패션의류잡화" style="color:#f79240" class="f_16px f_bold f_tcolor">패션의류잡화</a>
+                 </li>
+                 <li>
+                  <a href="/web/search=산부인과/산후조리원" style="color:#f79240" class="f_16px f_bold f_tcolor">산부인과/산후조리원</a>
+                 </li>
+               </ul>
+
+             </div>
+           </div>
+
+           <!-- 개인화영역 종료 -->
+           <nav class="navbar navbar-fixed-top noBorder" role="navigation" style="background-color:#fff">
+
+            <div class="container">
+
+              <!-- 모바일 탑메뉴 시작 여기서부터 반영해야됨! 11:47-->
+              <div class="navbar-header">
+
+                <button type="button" class="navbar-toggle" style="padding:0; border:0;"
+                data-toggle="collapse"
+                data-target="#myNavbar">
+                <img src="/image/btn_menu.png" width="40">
+              </button>
+              <% if(memberId){ %>
+              <button type="button" class="navbar-toggle" style="float:right; margin-left:1em; padding:0" data-toggle="collapse" data-target="#myNavbar_2"><img src="/image/ico_pro.png" width="40"></button>
+              <a href="/web/write_first">
+                <button type="button" class="navbar-toggle" style="float:left; padding:0">
+                  <img src="/image/btn_write.png" width="40">
+                </button>
+              </a>
+              <% } %>
+              <span style="display:inline-block; float:left;">
+                <button type="button" class="navbar-toggle"
+                style="float:left; margin-left:1em; padding:0"
+                data-toggle="collapse"
+                data-target="#Search_bar">
+                <img src="/image/btn_search2.png" width="40">
+              </button>
+            </span>
+            <a href="/web">
+              <img src="/image/login_title.png" width="100"
+              style="float:left; position:absolute; top:1.5em; left:50%; margin-left:-4em; margin-bottom:10px">
+            </a>
+          </div>
+
+          <!-- 모바일 탑메뉴 끝 -->
+          <!-- PC 상단 우측 메뉴 -->
+          <div class="collapse navbar-collapse noPadding" style="float:right;">
+            <div class="navbar-right menustyle">
+              <ul class="nav navbar-nav">
+
+              <% if(!memberId){ %>
+               <li><a href="/web/login"><p><img src="/image/btn_login.png" width="112px"></p></a></li>
+                 <% } else{ %>
+                  <li><a href="/web/write_first"><p><img src="/image/btn_write.png" width="40px"></p></a></li>
+                  <li><a href="#" data-toggle="modal" data-target="#myNavbar_2"><p><img src="/image/ico_pro.png" width="40px"></p></a></li>
+                  <% } %>
+                  <li><a href="#" data-toggle="collapse" data-target="#myNavbar"><p><img src="/image/btn_menu.png" width="40px"></p></a></li>
+                  </ul>
+                </div>
+              </div>
+              <!-- 검색 바 -->
+              <!-- <form action="" method="get"> -->
+                <div class="collapse navbar-collapse noPadding" style="float:left; min-width:300px; overflow:hidden;" id="Search_bar">
+                <div class="navbar-right menustyle">
+                  <ul class="nav navbar-nav">
+                    <li>
+                      <span style="display:inline-block;">
+                        <input type="text" class="innerbtn" placeholder="검색하기" id="productSearch"
+                        style="width:70%; min-width:200px;height:40px; margin-top:15px; margin-left:2em; padding-left:1em; font-size:18px; border:1px solid #e8e8e8;">
+                        <input type="image" id="productSearchBtn" src="/image/btn_search.png"
+                        style="margin-left: 1em; width:30px; margin-top:15px; padding-left:1em; "/>
+                      </span></li>
+                    </ul>
+                  </div>
+                </div>
+              <!-- </form> -->
+            </div>
+          </nav>
+
+          <!-- Main Page -->
+
+          <%-body -%>
+
+          <script>
+
+          var page = 1;
+          var mutex = 0;
+
+          $(window).scroll(function () {
+            var scrollHeight = $(window).scrollTop() + $(window).height();
+            var documentHeight = $(document).height();
+
+            if (scrollHeight + 200 >= documentHeight) {
+              if (mutex == 0) {
+                mutex = 1;
+                page += 1;
+                $.ajax({
+                  url: '/web/list',
+                  type: 'GET',
+                  data: {
+                    keyword: "<%=keyword%>",
+                    page: page
+                  },
+                  success: function (list) {
+                    $(list).appendTo('div#infinite');
+
+                  }
+                });
+                setTimeout(continueJob, 1500);
+              }
+
+
+            }
+          });
+          function continueJob() {
+            mutex = 0;
+          }
+
+          $("#productSearchBtn").click(function(){
+            if($("#productSearch").val()==''){
+              alert('검색어를 꼭 입력해주세요')
+            }else{
+              location.href = "/web/search="+$("#productSearch").val();
+            }
+          })
+
+          </script>
+        </body>
+        </html>

@@ -1,0 +1,6 @@
+{
+  "client_id": "1092795117403450",
+  "client_secret": "c0ab4928d7899e3810f90c8813d43eb1",
+  "scope": "email, user_about_me",
+  "redirect_uri": "http://soodaa.net/web/fb_login"
+}

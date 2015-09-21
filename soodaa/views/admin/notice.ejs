@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <h1><%= title %></h1>
+    <table width="600" class="table">
+      <tr>
+        <th width="40">번호</th>
+        <th width="260">내용</th>
+        <th width="100">글쓴이</th>
+        <th width="160">날짜</th>
+      </tr>
+      <%
+      for(var i = 0, len = datas.data.length; i < len, item = datas.data[i]; i++) {
+      %>
+      <tr>
+        <td><%= datas.max-i %></td>
+        <td><a href="/admin/noticeRead/<%= datas.page %>/<%= item.noticeNum %>"><%= item.noticeContent %></a></td>
+        <td><%= item.memberId %></td>
+        <td><%= item.regdate %></td>
+      </tr>
+      <%
+      }
+      %>
+    </table>
+    <div class="form-control" style="text-align: center">
+      <% if(datas.page > datas.pageSize) { %>
+      [ <a style="text-decoration:none" href="/admin/todays/1">◀◀</a> ]
+      [ <a style="text-decoration:none" href="/admin/todays/<%= datas.startPage-1 %>">◀</a> ]
+      <% } else { %>
+      [<span style="color:gray">◀◀</span>]
+      [<span style="color:gray">◀</span>]
+      <% } %>
+      &nbsp;&nbsp;
+      <% for(var i = datas.startPage; i <= datas.endPage; i++) { %>
+      <% if(i == datas.page) { %>
+      [<%= i %>]
+      <% } else { %>
+      [<a style="text-decoration:none" href="<%= i %>"><%= i %></a>]
+      <% } %>
+      <% } %>
+      &nbsp;&nbsp;
+      <% if(datas.endPage < datas.totalPage) { %>
+      [ <a style="text-decoration:none" href="/admin/todays/<%= datas.endPage+1 %>">▶</a> ]
+      [<a style="text-decoration:none" href="/admin/todays/<%= datas.totalPage %>">▶▶</a> ]
+
+      <% } else { %>
+      [<span style="color:gray">▶</span>]
+      [<span style="color:gray">▶▶</span>]
+
+      <% } %>
+
+    </div>
+    <input type="button" onclick="location.href='/admin/'" value='메인메뉴' class="btn btn-primary">
+    <input type="button" onclick="location.href='/admin/noticeWrite'" value='쓰기' class="btn btn-success">
+  </div>
+</div>
+
+</body>
+<script src="/javascripts/jquery-1.11.2.js"></script>
+<script>
+  $(function () {
+    <%if(!memberId && memberId!='admin'){%>
+    alert('로그인을 안하거나 관리자가 아니네요');
+    history.back();
+
+    <%}%>
+
+  })
+
+</script>
+</html>

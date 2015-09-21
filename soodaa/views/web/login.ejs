@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Soodaa::로그인</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="icon" type="image/x-icon" href="/images/favicon.ico"/>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" type="text/css" href="/stylesheets/custom.css"/>
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="/stylesheets/bootstrap.min.js"></script>
+  <script src="/javascripts/myscript.js"></script>>
+
+</head>
+
+<body style="background-color:#e8e8e8">
+
+<div class="login_warp"
+     style="position:relative; top:10px; left:0%; background-color:#ddd; max-width:800px; margin:auto; text-align:center;">
+
+  <div style="background-color:#fff; width:100%;">
+    <a href="/web">
+      <img src="/image/login_title.png" width="30%"
+           style="margin:2em auto 2em auto;">
+    </a>
+  </div>
+
+  <form action="" method="post" class="form-horizontal">
+    <div class="login_box" style="width:100%; ">
+      <h3 style="text-align:center; margin-top:2em">로그인</h3>
+
+
+      <p style="margin-top:2em">
+        <input type="text" name="memberId" placeholder="이메일"
+               style="width:70%; min-width:300px; height:3em; padding:0.5em">
+
+      </p>
+
+      <p style="margin-top:2em">
+        <input type="password" name="memberPasswd" placeholder="비밀번호"
+               style="width:70%; min-width:300px; height:3em; padding:0.5em"></p>
+    </div>
+    <div style="min-width:300px; max-width:70%; margin:3em auto; position:relative">
+
+
+
+      <button type="submit" class="l_btn" style="width:10em; float:left;">로그인</button>
+      <button type="button" class="l_btn" style="width:10em;float:right;" onclick="location.href='/web/join';">
+        회원가입
+      </button>
+
+    </div>
+  </form>
+
+  <div class="sns_btn"
+       style="width:70%; min-width:300px; padding-top:1em; padding-bottom:1em; border-top:1px solid #f7923f; margin:10em auto; clear:both; position:relative">
+    <a href="/web/fb_login">
+      <img src="/image/btn_facebook.png"
+           style="margin-top:2em; margin-bottom:1em; width:100%;">
+    </a>
+  </div>
+</div>
+
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="/javascript/bootstrap.min.js"></script>
+<script src="/javascript/myscript.js"></script>
+
+<script>
+  function facebook_login() {
+    FB.login(function (response) {
+      var fbname = '';
+      var email = '';
+      var profile_pic = '';
+      var userid = '';
+      var accessToken = response.authResponse.accessToken;
+
+      FB.api('/me?fields=id,name,email,picture.width(160).height(160).type(square)&locale=ko_KR', function (user) {
+        fbname = user.name;
+        email = user.email;
+        userid = user.id;
+        profile_pic = user.picture.data.url;
+        $.post("./fb_login_process", {
+              "userid": userid,
+              "fbname": fbname,
+              "profile_pic": profile_pic,
+              "email": email,
+              "accessToken": accessToken
+            },
+            function (data) {
+              document.location.href = data
+            });
+      });
+    }, {scope: 'public_profile, email'})
+  }
+</script>
+
+</body>
+</html>

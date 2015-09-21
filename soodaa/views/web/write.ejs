@@ -1,0 +1,423 @@
+<% layout('layout') -%>
+    <div class="container-fluid noPadding" style="background-color:#e8e8e8;">
+        <div class="container textstyle">
+            <div class="row text-left latestProjects" style="background-color:#fff;">
+
+                <form action="/web/write" method="post" id="frm1" enctype=multipart/form-data>
+                  <input type="hidden" name="productNum" value="<%=data[0].productNum%>" >
+                    <div class="col-md-12 col-sm-6" style="display:inline-block;text-align:left; width:100%;">
+                        <ul>
+                            <li style="margin:1em auto; list-style:none;"><strong style="font-size:1.5em">리뷰작성</strong>
+                            </li>
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                제품명
+                                <input type="text" placeholder="제품명" value="<%=data[0].productName%>" disabled
+                                       style="width:100%;  height:3em; padding:0.5em;">
+                            </li>
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                브랜드명
+                                <input type="text" placeholder="제품명" value="<%=data[0].productBrand%>" disabled
+                                       style="width:100%; height:3em; padding:0.5em;">
+                            </li>
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                구매장소
+                                <select class="form-control" name="reviewWhere"
+                                        style="width:100%; height:3em; padding:0.5em;">
+                                    <option selected>소셜커머스</option>
+                                    <option>오픈마켓</option>
+                                    <option>쇼핑몰</option>
+                                    <option>로드샵</option>
+                                    <option>홈쇼핑</option>
+                                    <option>백화점</option>
+                                    <option>대형마트</option>
+                                    <option>H&B스토어</option>
+                                    <option>해외구매</option>
+                                    <option>약국,병원</option>
+                                    <option>무료나눔</option>
+                                    <option>중고거래</option>
+                                    <option>선물</option>
+                                    <option>기타</option>
+                                </select>
+                            </li>
+
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                별점
+                                <select class="form-control" name="reviewStar"
+                                        style="width:100%; height:3em; padding:0.5em;">
+                                    <option value="0.5">0.5점</option>
+                                    <option value="1.0">1점</option>
+                                    <option value="1.5">1.5점</option>
+                                    <option value="2.0">2점</option>
+                                    <option value="2.5">2.5점</option>
+                                    <option value="3" selected>3점</option>
+                                    <option value="3.5">3.5점</option>
+                                    <option value="4">4점</option>
+                                    <option value="4.5">4.5점</option>
+                                    <option value="5">5점</option>
+                                </select>
+                            </li>
+
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                <input type="text" id="reviewPrice" name="reviewPrice" value=""
+                                       placeholder="가격 (예: 40000)"
+                                       style="width:100%; height:3em; padding:0.5em;" >
+                            </li>
+
+
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                <input type="text" id="reviewGood" name="reviewGood" value=""
+                                       placeholder="한줄 장점"
+                                       style="width:100%; height:3em; padding:0.5em;" >
+                            </li>
+
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                <input type="text" id="reviewBad" name="reviewBad" value=""
+                                       placeholder="한줄 단점"
+                                       style="width:100%; height:3em; padding:0.5em;" >
+                            </li>
+
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                <input type="text" id="reviewRecommandPeople" name="reviewRecommandPeople" value=""
+                                       placeholder="추천해주고 싶은 사람 (예: 귀찮은거 싫어하시는 분을 위한 제품!)"
+                                       style="width:100%; height:3em; padding:0.5em;" >
+                            </li>
+                            <li style="width:100%; margin:1em auto; list-style:none;">
+                                <input type="text" id="reviewKnowhow" name="reviewKnowhow" value=""
+                                       placeholder="할인노하우 (예: 육아사랑카드 20%할인)"
+                                       style="width:100%; height:3em; padding:0.5em;" >
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div class="col-md-12 col-sm-6" style="display:inline-block;text-align:left; width:100%;">
+                        <li style="width:100%; margin:1em auto; list-style:none;">
+                            <textarea cols="40" rows="10" placeholder="솔직한 리뷰 부탁드립니다 ^^" id="reviewContent" name="reviewContent"
+                                      style="width:100%; min-width:300px; height:300px; padding:0.5em; vertical-align:top;" ></textarea>
+                        </li>
+
+                        <hr />
+                        <li style="width:100%; margin:1em auto; list-style:none; text-align: center">
+                            아래 대표사진 버튼을 눌러 사진을 업로드하세요! 대표사진은 필수입니다.
+                        </li>
+
+                        <li class="col-md-2 col-sm-1 write_photo" style="list-style:none; margin-top:30px">
+                            <div id='previewId1'
+                                 style='width: 100px; height: 100px; color: black; font-size: 9pt; border: 1px solid black;'>
+                            </div>
+                            <div class="fileUpload btn btn-default"
+                                 style="width:100px; position: relative;    overflow: hidden;   ">
+                                <span>대표사진</span>
+                                <input type="file" id="file1" onchange="previewImage(this, 'previewId1')"
+                                       name="reviewPicture1" class="upload"
+                                       style="position: absolute;   top: 0; right: 0;   margin: 0;  padding: 0; font-size: 20px;    cursor: pointer;    opacity: 0; filter: alpha(opacity=0);" />
+                            </div>
+                            <div class="btn btn-default" id="clear"
+                                 style="width:100px; position: relative;    overflow: hidden;   "
+                                 onclick="delete_file('file1','previewId1')">
+                                <span>삭제</span>
+                            </div>
+
+
+                        </li>
+                        <li class="col-md-2 col-sm-1 write_photo" style="list-style:none; margin-top:30px">
+                            <div id='previewId2'
+                                 style='width: 100px; height: 100px; color: black; font-size: 9pt; border: 1px solid black;'>
+                            </div>
+                            <div class="fileUpload btn btn-default"
+                                 style="width:100px; position: relative;    overflow: hidden;   ">
+                                <span>보조사진1</span>
+                                <input type="file" id="file2" onchange="previewImage(this, 'previewId2')"
+                                       name="reviewPicture2" class="upload"
+                                       style="position: absolute;   top: 0; right: 0;   margin: 0;  padding: 0; font-size: 20px;    cursor: pointer;    opacity: 0; filter: alpha(opacity=0);"/>
+                            </div>
+                            <div class="btn btn-default" id="clear"
+                                 style="width:100px; position: relative;    overflow: hidden;   "
+                                 onclick="delete_file('file2','previewId2')">
+                                <span>삭제</span>
+                            </div>
+
+                        </li>
+
+
+                        <li class="col-md-2 col-sm-1 write_photo" style="list-style:none; margin-top:30px">
+                            <div id='previewId3'
+                                 style='width: 100px; height: 100px; color: black; font-size: 9pt; border: 1px solid black;'>
+                            </div>
+                            <div class="fileUpload btn btn-default"
+                                 style="width:100px; position: relative;    overflow: hidden;   ">
+                                <span>보조사진2</span>
+                                <input type="file" id="file3" onchange="previewImage(this, 'previewId3')"
+                                       name="reviewPicture3" class="upload"
+                                       style="position: absolute;   top: 0; right: 0;   margin: 0;  padding: 0; font-size: 20px;    cursor: pointer;    opacity: 0; filter: alpha(opacity=0);"/>
+                            </div>
+                            <div class="btn btn-default" id="clear"
+                                 style="width:100px; position: relative;    overflow: hidden;   "
+                                 onclick="delete_file('file3','previewId3')">
+                                <span>삭제</span>
+                            </div>
+
+                        </li>
+
+
+                        <li class="col-md-2 col-sm-1 write_photo" style="list-style:none; margin-top:30px">
+                            <div id='previewId4'
+                                 style='width: 100px; height: 100px; color: black; font-size: 9pt; border: 1px solid black;'>
+                            </div>
+                            <div class="fileUpload btn btn-default"
+                                 style="width:100px; position: relative;    overflow: hidden;   ">
+                                <span>보조사진3</span>
+                                <input type="file" id="file4" onchange="previewImage(this, 'previewId4')"
+                                       name="reviewPicture4" class="upload"
+                                       style="position: absolute;   top: 0; right: 0;   margin: 0;  padding: 0; font-size: 20px;    cursor: pointer;    opacity: 0; filter: alpha(opacity=0);"/>
+                            </div>
+                            <div class="btn btn-default" id="clear"
+                                 style="width:100px; position: relative;    overflow: hidden;   "
+                                 onclick="delete_file('file4','previewId4')">
+                                <span>삭제</span>
+                            </div>
+
+                        </li>
+
+
+                        <li class="col-md-2 col-sm-1 write_photo" style="list-style:none; margin-top:30px">
+                            <div id='previewId5'
+                                 style='width: 100px; height: 100px; color: black; font-size: 9pt; border: 1px solid black;'>
+                            </div>
+                            <div class="fileUpload btn btn-default"
+                                 style="width:100px; position: relative;    overflow: hidden;   ">
+                                <span>보조사진4</span>
+                                <input type="file" id="file5" onchange="previewImage(this, 'previewId5')"
+                                       name="reviewPicture5" class="upload"
+                                       style="position: absolute;   top: 0; right: 0;   margin: 0;  padding: 0; font-size: 20px;    cursor: pointer;    opacity: 0; filter: alpha(opacity=0);"/>
+                            </div>
+                            <div class="btn btn-default" id="clear"
+                                 style="width:100px; position: relative;    overflow: hidden;   "
+                                 onclick="delete_file('file5','previewId5')">
+                                <span>삭제</span>
+                            </div>
+
+                        </li>
+                    </div>
+                    <div class="col-md-12 col-sm-6" style="margin:1em auto; text-align:center;">
+                        <button type="submit" class="s_btn"
+                                style="margin:1em auto;; margin-right:2em; width:200px; height:50px;">등록하기
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- Footer -->
+
+        <div class="container footer">
+            <div class="col-xs-12 col-md-8 noPadding">
+                <p id="footerLogoText">Soodaa © 2015 | <a href="/privacy">개인정보취급방침</a> | <a href="/ask">운영자에게 문의하기</a></p>
+            </div>
+            <div class="col-xs-12 col-md-4 noPadding">
+                <div class="socialButtons responsiveAlign">
+                    <a href="#" class="noPadding">
+                        <img src="/image/twitter.svg" alt="image1"
+                             onclick="alert('준비중입니다');">
+                    </a>
+                    <a href="#" class="noPadding">
+                        <img src="/image/facebook.svg" alt="image1"
+                             onclick="alert('준비중입니다');">
+                    </a>
+                    <a href="#" class="noPadding">
+                        <img src="/image/behance.svg" alt="image1"
+                             onclick="alert('준비중입니다');">
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="/javascripts/jquery.validate.min.js"></script>
+<script src="/javascript/bootstrap.min.js"></script>
+<script src="/javascript/myscript.js"></script>
+
+<script type="text/javascript">
+    function delete_file(file, previewId) {
+        var preview = document.getElementById(previewId); //div id
+        var prevImg = document.getElementById("prev_" + previewId); //이전에 미리보기가 있다면 삭제
+
+        if (prevImg) {
+            preview.removeChild(prevImg);
+        }
+        document.getElementById(file).value = "";
+    }
+
+    function previewImage(targetObj, previewId) {
+
+        var preview = document.getElementById(previewId); //div id
+        var ua = window.navigator.userAgent;
+
+        if (ua.indexOf("MSIE") > -1) {//ie일때
+
+            targetObj.select();
+
+            try {
+                var src = document.selection.createRangeCollection()[0].text;
+                var ie_preview_error = document
+                        .getElementById("ie_preview_error_" + previewId);
+
+                if (ie_preview_error) {
+                    preview.removeChild(ie_preview_error); //error가 있으면 delete
+                }
+
+                var img = document.getElementById(previewId); //이미지가 뿌려질 곳
+
+                img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='"
+                + src + "', sizingMethod='scale')";
+
+            } catch (e) {
+                if (!document.getElementById("ie_preview_error_" + previewId)) {
+                    var info = document.createElement("<p>");
+                    info.id = "ie_preview_error_" + previewId;
+                    info.innerHTML = "a";
+                    preview.insertBefore(info, null);
+                }
+            }
+        } else { //ie가 아닐때
+            var files = targetObj.files;
+            for (var i = 0; i < files.length; i++) {
+                console.log('!!')
+                var file = files[i];
+
+
+                var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
+                if (!file.type.match(imageType))
+                    continue;
+
+                var prevImg = document.getElementById("prev_" + previewId); //이전에 미리보기가 있다면 삭제
+                if (prevImg) {
+                    preview.removeChild(prevImg);
+                }
+
+
+                var img = document.createElement("img");
+
+                img.id = "prev_" + previewId;
+                img.classList.add("obj");
+                img.file = file;
+                img.style.width = '100px'; //기본설정된 div의 안에 뿌려지는 효과를 주기 위해서 div크기와 같은 크기를 지정해준다.
+                img.style.height = '100px';
+
+                preview.appendChild(img);
+
+                if (window.FileReader) { // FireFox, Chrome, Opera 확인.
+                    var reader = new FileReader();
+                    reader.onloadend = (function (aImg) {
+                        return function (e) {
+                            aImg.src = e.target.result;
+                        };
+                    })(img);
+                    reader.readAsDataURL(file);
+                } else { // safari is not supported FileReader
+                    //alert('not supported FileReader');
+                    if (!document.getElementById("sfr_preview_error_"
+                            + previewId)) {
+                        var info = document.createElement("p");
+                        info.id = "sfr_preview_error_" + previewId;
+                        info.innerHTML = "not supported FileReader";
+                        preview.insertBefore(info, null);
+                    }
+                }
+            }
+        }
+    }
+</script>
+
+
+<script>
+$(function(){
+        $("#frm1").validate({
+            //validation이 끝난 이후의 submit 직전 추가 작업할 부분
+            submitHandler: function() {
+                var f = confirm("작성을 완료하겠습니까?");
+                if(f){
+                    return true;
+                } else {
+                    return false;
+                }
+            },
+            //규칙
+            rules: {
+                reviewPrice: {
+                    required : true
+                },
+                reviewGood: {
+                    required : true
+                },
+                reviewBad: {
+                    required : true
+                },
+                reviewRecommandPeople: {
+                    required : true
+                },
+                reviewKnowhow: {
+                    required : true
+                },
+                reviewContent: {
+                    required : true
+                },
+                reviewPicture1 : {
+                    required : true
+                }
+            },
+            //규칙체크 실패시 출력될 메시지
+            messages : {
+                reviewPrice: {
+                    required : "가격을 입력하세요"
+                },
+                reviewGood: {
+                    required : "장점을 입력하세요"
+                },
+                reviewBad: {
+                    required : "단점을 입력하세요"
+                },
+                reviewRecommandPeople: {
+                    required : "추천하고 싶은 사람을 입력하세요"
+                },
+                reviewKnowhow: {
+                    required : "할인노하우를 입력하세요"
+                },
+                reviewContent: {
+                    required : "내용을 입력하세요"
+                },
+                reviewPicture1: {
+                    required : "필수"
+                }
+            }
+        });
+})
+
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+            (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+    // 로그인 했으면
+
+    ga('create', 'UA-61477451-1', { 'userId': '45' });
+
+
+
+    // 기본 설정
+    ga('send', 'pageview');
+    // 로그인한 User-ID를 사용하여 User-ID를 설정합니다.
+
+</script>

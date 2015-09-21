@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <h1><%= title %></h1>
+    <a href="/admin/product">리스트</a>
+    <button type="button" id="minus" class="btn btn-default" style="float:right">
+      <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> 제거
+    </button>
+    <button type="button" id="plus" class="btn btn-default" style="float:right">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 추가
+    </button>
+
+
+
+    <form action="/admin/productWrite" method="post" enctype="multipart/form-data">
+      <table width="400" class="table">
+        <tr>
+          <th width="100">브랜드</th>
+          <th width="100">카테고리1</th>
+          <th width="100">카테고리2</th>
+          <th width="200">제품 이름</th>
+          <th width="130">연령대</th>
+
+        </tr>
+        <tr  >
+          <th width="140"><input type="text" name="productBrand" id="productBrand"
+                                 class="form-control"/></th>
+          <th width="100"><input type="text" name="productCategory1" id="productCategory1"
+                                 class="form-control"/></th>
+          <th width="100"><input type="text" name="productCategory2" id="productCategory2"
+                                 class="form-control"/></th>
+          <th width="300"><input type="text" name="productName" id="productName"
+                                 class="form-control"/></th>
+          <th width="100">
+            <input type="text" name="productAge" id="productAge" placeholder="공백없이! ex(0~1)"
+                   class="form-control"/></th>
+        </tr>
+        <tr class="original">
+          <td colspan="5">
+            <input type="submit" value="쓰기" class="btn btn-primary"/>
+            <input type="reset" value="취소" class="btn btn-warning"/>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>
+</body>
+<script src="/javascripts/jquery-1.11.2.js"></script>
+<script>
+  $(function () {
+    <%if(!memberId && memberId!='admin'){%>
+    alert('로그인을 안하거나 관리자가 아니네요');
+    history.back();
+
+    <%}%>
+
+    var test = 0;
+
+    $("#plus").click(function () {
+      if(test<=10){
+        test++;
+        $(".original").before('<tr class="'+test+'">' +
+        '<th width="140"><input type="text" name="productBrand" id="productBrand" class="form-control"/></th> ' +
+        '<th width="100"><input type="text" name="productCategory1" id="productCategory1" class="form-control"/></th> ' +
+        '<th width="100"><input type="text" name="productCategory2" id="productCategory2" class="form-control"/></th> ' +
+        '<th width="300"><input type="text" name="productName" id="productName" class="form-control"/></th> ' +
+        '<th width="100"> <input type="text" name="productAge" id="productAge" placeholder="공백없이! ex(0~1)" class="form-control"/></th> ' +
+        '</tr>');
+      }
+    })
+
+    $("#minus").click(function() {
+      if(test>=0){
+        $("."+test+"").remove();
+        test--;
+      }
+    })
+
+  })
+
+</script>
+</html>

@@ -1,0 +1,100 @@
+<% layout('layout') -%>
+ <!-- Main Page -->
+ <div class="container-fluid noPadding" style="background-color:#e8e8e8;">
+         <div class="container textstyle">
+             <div class="row text-left latestProjects" style="background-color:#fff;">
+
+                 <form action="" method="get">
+                     <div class="col-md-12 col-sm-6" style="display:inline-block;text-align:left; width:100%;">
+                         <ul>
+                             <li style="margin:1em auto; list-style:none;"><strong style="font-size:1.5em">제품 검색</strong>
+                             </li>
+                             <li style="width:100%; margin:1em auto; list-style:none;">
+                                 <input type="text" name="productName" id="search" placeholder="리뷰를 남길 제품의 이름을 입력해 주세요" style="width:100%; min-width:300px; height:3em; padding:0.5em;">
+                             </li>
+                         </ul>
+                     </div>
+                     <div class="col-md-12 col-sm-6" style="margin:1em auto; text-align:center;">
+                         <button type='button' class="s_btn" id="searchbtn" style="margin:1em auto;; margin-right:2em; width:150px; height:40px;">
+                             검색
+                         </button>
+                     </div>
+                 </form>
+                 <!-- 검색 결과 -->
+                 <div class="col-md-12 col-sm-6" style="margin:1em auto; text-align:center;">
+                 <hr />
+
+                 <% if ( data ) {%>
+                     <%=data.length%> 건이 검색되었습니다. 리뷰를 남길 제품을 선택하세요<br>
+                     원하시는 제품이 없으면 <a href="/web/new_product">여기</a>를 눌러 새로운 제품을 등록하세요!<br><br>
+
+                     <% for (var i = 0, len = data.length ; i < len ; i ++){%>
+                         <a href = "/web/write/<%=data[i].productNum%>">
+                         <p> <%=data[i].productBrand%>  /  <%=data[i].productName%></p><br>
+                         </a>
+                     <% } %>
+                 <% } %>
+                 </div>
+             </div>
+         </div>
+
+
+         <!-- Footer -->
+         <div class="container footer">
+             <div class="col-xs-12 col-md-8 noPadding">
+                 <p id="footerLogoText">Soodaa © 2015 | <a href="/privacy">개인정보취급방침</a> | <a href="/ask">운영자에게 문의하기</a></p>
+             </div>
+             <div class="col-xs-12 col-md-4 noPadding">
+                 <div class="socialButtons responsiveAlign">
+                     <a href="#" class="noPadding">
+                         <img src="/image/twitter.svg" alt="image1"
+                              onclick="alert('준비중입니다');">
+                     </a>
+                     <a href="#" class="noPadding">
+                         <img src="/image/facebook.svg" alt="image1"
+                              onclick="alert('준비중입니다');">
+                     </a>
+                     <a href="#" class="noPadding">
+                         <img src="/image/behance.svg" alt="image1"
+                              onclick="alert('준비중입니다');">
+                     </a>
+                 </div>
+             </div>
+         </div>
+
+     </div>
+
+
+
+ <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+ <script src="/js/bootstrap.min.js"></script>
+ <script src="/js/myscript.js"></script>
+
+ <script>
+ $("#searchbtn").click(function(){
+   if($("#search").val()==''){
+     alert('검색어를 꼭 입력해주세요')
+   }else{
+     location.href = "/web/write_first/"+$("#search").val();
+   }
+ })
+
+     (function (i, s, o, g, r, a, m) {
+         i['GoogleAnalyticsObject'] = r;
+         i[r] = i[r] || function () {
+             (i[r].q = i[r].q || []).push(arguments)
+         }, i[r].l = 1 * new Date();
+         a = s.createElement(o),
+                 m = s.getElementsByTagName(o)[0];
+         a.async = 1;
+         a.src = g;
+         m.parentNode.insertBefore(a, m)
+     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+     // 로그인 했으면
+     ga('create', 'UA-61477451-1', { 'userId': '45' });
+     // 기본 설정
+     ga('send', 'pageview');
+     // 로그인한 User-ID를 사용하여 User-ID를 설정합니다.
+
+ </script>

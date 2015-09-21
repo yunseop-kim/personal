@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <h1><%= title %></h1>
+    <a href="/admin">관리자 페이지</a>&nbsp;&nbsp;
+    <a href="/admin/productWrite">등록</a>
+    <a href="/admin/product">전체리스트</a>
+
+    <table width="600" class="table">
+      <tr>
+        <th width="40">번호</th>
+        <th width="100">브랜드</th>
+        <th width="100">카테고리1</th>
+        <th width="100">카테고리2</th>
+        <th width="300">제품 이름</th>
+        <th width="100">연령대</th>
+        <th width="100">등록일</th>
+        <th width="100">편집</th>
+      </tr>
+      <%
+      for(var i = 0, len = datas.data.length; i < len, item = datas.data[i]; i++) {
+      %>
+      <tr>
+
+        <td><%= item.productNum %></td>
+        <td><%= item.productBrand %></td>
+        <td><%= item.productCategory1 %></td>
+        <td><%= item.productCategory2 %></td>
+        <td><%= item.productName %></td>
+        <td><%= item.productStartAge %>~<%= item.productEndAge %></td>
+        <td><%= item.productRegdate %></td>
+        <td><a href="/admin/productModify/<%= datas.page %>/<%= item.productNum %>"><input
+                type="button" value="편집" class="btn btn-primary"/></a></td>
+
+
+      </tr>
+      <%
+      }
+      %>
+    </table>
+    <div class="form-control" style="text-align: center">
+      <% if(datas.page > datas.pageSize) { %>
+      [ <a style="text-decoration:none" href="/admin/productSearch/1/<%= datas.search%>/<%= datas.query %>">◀◀</a> ]
+      [ <a style="text-decoration:none" href="/admin/productSearch/<%= datas.startPage - 1 %>/<%= datas.search%>/<%= datas.query %>">◀</a> ]
+      <% } else { %>
+      [<span style="color:gray">◀◀</span>]
+      [<span style="color:gray">◀</span>]
+      <% } %>
+      &nbsp;&nbsp;
+      <% for(var i = datas.startPage; i <= datas.endPage; i++) { %>
+      <% if(i == datas.page) { %>
+      [<%= i %>]
+      <% } else { %>
+      [<a style="text-decoration:none" href="/admin/productSearch/<%=i%>/<%= datas.search%>/<%= datas.query %>"><%= i %></a>]
+      <% } %>
+      <% } %>
+      &nbsp;&nbsp;
+      <% if(datas.endPage < datas.totalPage) { %>
+      [ <a style="text-decoration:none" href="/admin/productSearch/<%= datas.endPage + 1 %>/<%= datas.search%>/<%= datas.query %>">▶</a> ]
+      [<a style="text-decoration:none" href="/admin/productSearch/<%= datas.totalPage %>/<%= datas.search%>/<%= datas.query %>">▶▶</a> ]
+
+      <% } else { %>
+      [<span style="color:gray">▶</span>]
+      [<span style="color:gray">▶▶</span>]
+
+      <% } %>
+    </div>
+    <div class="form-inline" class="form-inline" style="text-align: center">
+      <!--<form action="/admin/productSearch/1" method="post" >-->
+      <div class="form-group">
+        <tr >
+          <td>
+            <select id="search" name="search" class="form-control">
+              <option value="1">브랜드</option>
+              <option value="2">카테고리</option>
+              <option value="3">이름</option>
+            </select>
+            <input type="text" id="query" name="query" size="11" class="form-control"/>
+          </td>
+          <td>
+            <input type="button" value="검색" id="searchbtn" class="btn btn-default"/>
+          </td>
+        </tr>
+      </div>
+      <!--</form>-->
+    </div>
+  </div>
+</div>
+
+</body>
+<script src="/javascripts/jquery-1.11.2.js"></script>
+<script>
+  $(function () {
+    <%if(!memberId && memberId!='admin'){%>
+    alert('로그인을 안하거나 관리자가 아니네요');
+    history.back();
+
+    <%}%>
+
+    $("#searchbtn").click(function(){
+      if($("#query").val()==''){
+        alert('검색어를 꼭 입력해주세요')
+      }else{
+        location.href = "/admin/productSearch/1/"+$("#search").val()+"/"+$("#query").val()
+
+      }
+    })
+
+  })
+
+
+</script>
+</html>

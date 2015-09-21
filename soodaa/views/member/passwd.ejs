@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel='stylesheet' href='/stylesheets/style.css'/>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <form action="/member/passwdfind" method="post" class="form">
+      <table class="table">
+        <tr>
+          <th colspan="2">비밀번호 바꾸기</th>
+
+        </tr>
+        <tr>
+          <th>비밀번호</th>
+          <td>
+            <input type="hidden" id="memberFind" name="memberFind" value="<%= memberFind %>"/>
+            <input type="password" id="memberPasswd" name="memberPasswd" class="form-control"/>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <input type="submit" value="바꾸기" class="btn btn-primary"/>
+            <input type="reset" value="취소" class="btn btn-warning"/>
+          </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</div>
+
+</body>
+</html>

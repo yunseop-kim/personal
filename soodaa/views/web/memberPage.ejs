@@ -1,0 +1,161 @@
+<% layout('layout') %>
+<!-- Main Page -->
+
+
+<div class="container-fluid noPadding" style="background-color:#e8e8e8; ">
+    <div class="container textstyle">
+        <div class="row text-center latestProjects">
+
+            <div class="col-md-4 col-sm-6" style="display:inline-block; text-align:center; margin-right:2em;">
+                <img src="
+                <% if(data.myInfo.memberPicture){%>
+                <%=data.myInfo.memberPicture%>
+                <%}else{%>
+                /image/ico_pro.png<%}%>" width="260px" height="260px" style="border:1px solid #737273">
+            </div>
+            <div class="col-md-7 col-sm-6" style="display:inline-block;text-align:left;">
+                <li style="width:100%; margin:1em auto; list-style:none;">
+                    <strong style="font-size:1.5em"><%=data.myInfo.memberName%></strong>
+                    <% if(data.myInfo.memberGender == 1){ %> 아빠
+                    <% }else if(data.myInfo.memberGender == 2){ %> 엄마
+                    <% }else if(data.myInfo.memberGender == 3){ %> 예비아빠
+                    <% }else if(data.myInfo.memberGender == 4){ %> 예비엄마
+                    <%}%>
+                </li>
+
+                <li style="width:100%; margin:1em auto; list-style:none;">
+                    <%=data.myInfo.memberId%>
+                </li>
+
+
+                <li style="width:100%; margin:1em auto; list-style:none;">가입일자
+                    : <%=data.myInfo.memberRegdate%></li>
+
+                    <li style="width:100%; margin:1em auto; list-style:none;">
+                        <em>Views <%=data.myInfo.totalHits%></em>
+                        <em style="margin-left:1.5em">likes <%=data.myInfo.totalLikes%></em>
+                        <em style="margin-left:1.5em">작성글수 <%=data.myInfo.totalReviews%></em>
+                    </li>
+
+
+                </div>
+
+            </div>
+            <div class="col-md-12 col-sm-6" style="margin:1em auto; text-align:center; border-top:2px solid #000">
+                <% if(data.myInfo.memberId == memberId){%>
+                <a href="/web/myPage">
+                    <button class="s_btn" style="margin:1em auto;; margin-right:2em; width:200px; height:50px;">정보수정
+                    </button>
+                </a>
+                <% } %>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+<div class="container-fluid noPadding" style="background-color:#e8e8e8">
+    <div class="container textstyle">
+        <div class="row text-center latestProjects">
+            <%for(var i= 0, len = data.myReviews.length ; item=data.myReviews[i],  i<len; i++){ %>
+            <div class="col-md-4 col-sm-6">
+              <p><a href="/web/view/<%=item.reviewNum%>">
+                  <img class="imgsize" src="<%=item.reviewPicture%>" height="217px"
+                       width="260px" alt="썸네일">
+                </a></p>
+              <div id="star">
+                <ul id="star0" class="star" title="Rate This!">
+                  <li id="starCur0" class="curr" title="98"
+                      style="width: <%
+                    switch(item.reviewStar) {
+                        case 0.5 : %> 8.5<% break;
+                        case 1.0 : %> 17<% break;
+                        case 1.5 : %> 25.5<% break;
+                        case 2.0 : %> 34<% break;
+                        case 2.5 : %> 42.5<% break;
+                        case 3.0 : %> 51<% break;
+                        case 3.5 : %> 59.5<% break;
+                        case 4.0 : %> 68<% break;
+                        case 4.5 : %> 76.5<% break;
+                        case 5.0 : %> 85<% break;
+                    }
+                %>px;"></li>
+                </ul>
+              </div>
+              <div>
+                <p class="p_info1" style="font-size: 13px; height: 50px;"><%=item.productBrand%></p>
+                <p class="p_info1" style="font-size: 8px; height: 80px; cursor: pointer"
+                   onclick="location.href='/web/web/view/<%=item.reviewNum%>'"><strong><%=item.productName%></strong></p>
+              </div>
+              <p class="p_info2"><a href="/web/memberPage/<%=item.memberId%>"
+                                    style="font-size: 16px"><%=item.memberName%></a></p>
+              <p class="p_info3" style="margin-bottom:40px">
+                <img src="/image/ico_like.png" style="width:12px"><%=item.likeFlagCnt%>
+                <img src="/image/ico_reply.png" style="width:13px"><%=item.reviewReplyCnt%>
+                <img src="/image/ico_view.png" style="width:20px"><%=item.reviewHit%></p>
+
+            </div>
+            <%}%>
+
+        </div>
+    </div>
+
+    <!-- Footer -->
+
+    <div class="container footer">
+        <div class="col-xs-12 col-md-8 noPadding">
+            <p id="footerLogoText">Soodaa © 2015 | <a href="/privacy">개인정보취급방침</a> | <a href="/ask">운영자에게 문의하기</a></p>
+        </div>
+        <div class="col-xs-12 col-md-4 noPadding">
+            <div class="socialButtons responsiveAlign">
+                <a href="#" class="noPadding">
+                    <img src="/image/twitter.svg" alt="image1"
+                    onclick="alert('준비중입니다');">
+                </a>
+                <a href="#" class="noPadding">
+                    <img src="/image/facebook.svg" alt="image1"
+                    onclick="alert('준비중입니다');">
+                </a>
+                <a href="#" class="noPadding">
+                    <img src="/image/behance.svg" alt="image1"
+                    onclick="alert('준비중입니다');">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="/javascripts/bootstrap.min.js"></script>
+<script src="/javascripts/myscript.js"></script>
+<script>
+(function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r;
+    i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date();
+    a = s.createElement(o),
+    m = s.getElementsByTagName(o)[0];
+    a.async = 1;
+    a.src = g;
+    m.parentNode.insertBefore(a, m)
+})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+// 로그인 했으면
+
+ga('create', 'UA-61477451-1', { 'userId': '45' });
+
+
+
+// 기본 설정
+ga('send', 'pageview');
+// 로그인한 User-ID를 사용하여 User-ID를 설정합니다.
+
+</script>
+</body>
+</html>
